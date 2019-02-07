@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/andela/ah-fulldeck-frontend.svg?branch=develop)](https://travis-ci.org/andela/ah-fulldeck-frontend)
 ### Author's Haven FrontEnd
 A social platform for the creative at heart
 
@@ -8,3 +9,6 @@ Clone this repo, open it and run local development server after install required
 * `npm install` 
 * `npm start` - to start the development server
 * `npm test` - run tests locally
+
+
+
