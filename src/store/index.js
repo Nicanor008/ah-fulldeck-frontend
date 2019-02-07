@@ -1,16 +1,22 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import logger from 'redux-logger';
-import rootReducer from '../reducers/index';
+import { logger } from 'redux-logger';
+import rootReducer from '../reducers';
+import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-  const initialState = {}
-  const storeConfig = () => {
-  const store = createStore(
-    rootReducer,
-    initialState,
-    compose(applyMiddleware(thunk, logger), composeEnhancers/* other store enhancers if any */)
-  );
-  return store;
-};
-export default storeConfig;
+
+let middlewares = [thunk]
+const devMiddleware = [logger, reduxImmutableStateInvariant()]
+
+if (process.env === 'development') {
+  middlewares.concat(devMiddleware)
+}
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+
+
+export default createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(...middlewares))
+)
