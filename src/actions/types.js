@@ -1,2 +1,5 @@
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGIN_ERROR = "LOGIN_ERROR";
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNUP_ERROR = 'SIGNUP_ERROR';
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
