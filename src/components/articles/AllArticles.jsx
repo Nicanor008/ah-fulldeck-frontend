@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Article from "./Article";
 import { getAllArticles } from "../../actions/articleActions";
 import TitleCapture from "../banner";
+import NavBar from "../layout/Navbar";
 
 class AllArticles extends Component {
   state = {
@@ -18,6 +19,7 @@ class AllArticles extends Component {
     const { notFetching, articles } = this.props;
     return (
       <div>
+      <NavBar/>
         <TitleCapture />
         <div className="container mt-3">
           <div className="container card border-0 bg-light">
