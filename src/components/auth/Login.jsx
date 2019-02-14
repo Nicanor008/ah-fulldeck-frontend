@@ -1,20 +1,75 @@
 import React, { Component } from "react";
 import TextInputGroup from "../layout/TextInputGroup";
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/userActions";
+import launchToast from "../../helpers/Toast";
+import logo from "../../assets/images/logo.png";
 
 class Login extends Component {
   state = {
     email: "",
     password: "",
-    errors: {}
+    errors: {},
+    isLoading: false,
+    success: false
   };
+  componentDidUpdate() {
+    const { user, history } = this.props;
+    if (user.user) {
+      if (user.user.success) {
+        const username = user.user.username;
+        launchToast(
+          `${username} logged in successfully`,
+          "toastSuccess",
+          "descSuccess",
+          "success"
+        );
+        localStorage.setItem("user", JSON.stringify(user.user));
+        localStorage.setItem("token", user.user.token);
+        history.push(`/`);
+      }
+    }
+    if (user.errors) {
+      if (user.errors.error) {
+        const message = user.errors.error[0];
+        launchToast(message, "toastFail", "descFail", "fail");
+      }
+    }
+  }
+  onSubmit = e => {
+    e.preventDefault();
+
+    const { email, password } = this.state;
+
+    // Check For Errors
+    if (email === "") {
+      this.setState({ errors: { email: "Email is required" } });
+      return;
+    }
+
+    if (password === "") {
+      this.setState({ errors: { password: "password is required" } });
+      return;
+    }
+
+    const newLogin = {
+      email,
+      password
+    };
+
+    this.props.loginUser(newLogin);
+  };
+
   onChange = e => this.setState({ [e.target.name]: e.target.value });
   render() {
     const { password, email, errors } = this.state;
     return (
       <div className="card mb-3" style={{ width: "35rem", margin: "0 auto" }}>
-        <div className="card-header">Add Contact</div>
-        <div className="card-body">
-          <form>
+        <div className="card-header" style={{ backgroundColor: "#ffffff" }}>
+          <img src={logo} alt="logo" className="logo" />
+        </div>
+        <div className="card-body" style={{ backgroundColor: "#D3D3D3" }}>
+          <form onSubmit={this.onSubmit}>
             <TextInputGroup
               name="email"
               placeholder="Enter Email ..."
@@ -42,5 +97,10 @@ class Login extends Component {
     );
   }
 }
-
-export default Login;
+const mapStateToProps = state => ({
+  user: state.login
+});
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Login);
