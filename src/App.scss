@@ -1,32 +1,187 @@
 .App {
-  text-align: center;
+	text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+	animation: App-logo-spin infinite 20s linear;
+	height: 40vmin;
 }
 
 .App-header {
-  background-color: #ffffff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+	background-color: #ffffff;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
 }
 
 .App-link {
-  color: #61dafb;
+	color: #61dafb;
 }
 .logo {
   height: 50px;
 }
 
 h1 {
-  color: rgb(137, 137, 219);
+	color: rgb(137, 137, 219);
+}
+
+#toast {
+	visibility: hidden;
+	max-width: 600px;
+	height: 50px;
+	margin: auto;
+
+	text-align: center;
+	border-radius: 5px;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	right: 0;
+	top: 20px;
+	font-size: 17px;
+	white-space: nowrap;
+}
+#toast #img {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	width: 70px;
+	height: 50px;
+	float: left;
+
+	padding-top: 16px;
+	padding-bottom: 16px;
+
+	box-sizing: border-box;
+}
+.toastSuccess {
+	background-color: #fcfff5;
+	border: 1px solid #a3c293;
+	color: #2c662d;
+}
+.toastFail {
+	background-color: #fff6f6;
+	border: 1px solid #e0b4b4;
+	color: #9f3a38;
+}
+
+#toast #desc {
+	padding: 16px;
+
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+#toast.show {
+	visibility: visible;
+	-webkit-animation: fadein 0.5s, expand 0.5s 0.5s, stay 5s 3s, shrink 0.5s 2s, fadeout 0.5s 2.5s;
+	animation: fadein 0.5s, expand 0.5s 0.5s, stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
+}
+.check {
+	margin-left: 4px;
+	font-size: 30px;
+}
+@-webkit-keyframes fadein {
+	from {
+		top: 0;
+		opacity: 0;
+	}
+	to {
+		top: 30px;
+		opacity: 1;
+	}
+}
+
+@keyframes fadein {
+	from {
+		top: 0;
+		opacity: 0;
+	}
+	to {
+		top: 30px;
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes expand {
+	from {
+		min-width: 70px;
+	}
+	to {
+		min-width: 350px;
+	}
+}
+
+@keyframes expand {
+	from {
+		min-width: 70px;
+	}
+	to {
+		min-width: 350px;
+	}
+}
+@-webkit-keyframes stay {
+	from {
+		min-width: 350px;
+	}
+	to {
+		min-width: 350px;
+	}
+}
+
+@keyframes stay {
+	from {
+		min-width: 350px;
+	}
+	to {
+		min-width: 350px;
+	}
+}
+@-webkit-keyframes shrink {
+	from {
+		min-width: 350px;
+	}
+	to {
+		min-width: 70px;
+	}
+}
+
+@keyframes shrink {
+	from {
+		min-width: 350px;
+	}
+	to {
+		min-width: 70px;
+	}
+}
+
+@-webkit-keyframes fadeout {
+	from {
+		top: 30px;
+		opacity: 1;
+	}
+	to {
+		top: 60px;
+		opacity: 0;
+	}
+}
+
+@keyframes fadeout {
+	from {
+		top: 30px;
+		opacity: 1;
+	}
+	to {
+		top: 60px;
+		opacity: 0;
+	}
+}
+
+.logo {
+	height: 50px;
 }
 
 #preloader {
