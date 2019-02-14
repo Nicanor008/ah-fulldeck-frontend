@@ -4,40 +4,42 @@ import classnames from "classnames";
 
 const TextInputGroup = ({
   name,
-  value,
   placeholder,
   type,
+  value,
   onChange,
-  error
+  error,
+  spin
 }) => {
   return (
-    <div className="form-group mt-4 pb-4">
+    <div className="form-group">
       <input
         type={type}
         name={name}
         className={classnames("form-control form-control-lg", {
           "is-invalid": error
         })}
-        placeholder={placeholder}
-        value={value}
+        placeholder={!error ? placeholder : error}
         onChange={onChange}
+        value={value}
+        error={error}
+        spin={spin}
       />
-      {error && <div className="invalid-feedback">{error}</div>}
+      {<div className="invalid-feedback">{error}</div>}
     </div>
   );
 };
 
-TextInputGroup.prototype = {
+TextInputGroup.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  error: PropTypes.string
+  spin: PropTypes.symbol.isRequired,
+  error: PropTypes.func
 };
 
-TextInputGroup.defaulfProps = {
+TextInputGroup.defaultsProps = {
   type: "text"
 };
-
 export default TextInputGroup;

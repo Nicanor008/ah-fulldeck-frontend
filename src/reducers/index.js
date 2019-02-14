@@ -6,6 +6,8 @@ import socialAuth from './socialAuth'
 import ArticleReducer from "./ArticleReducer";
 import singleArticleReducer from "./singleArticleReducer";
 import UserProfileReducer from "./Profile/userProfileReducer";
+import resetPassword from "./resetPassword";
+import updateReducer from './updateReducer';
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -13,7 +15,9 @@ const rootReducer = combineReducers({
   articles: ArticleReducer,
   article: singleArticleReducer,
   socialAuth,
-  profile: UserProfileReducer
+  profile: UserProfileReducer,
+  resetPassword,
+  updateReducer
 });
 
 export default rootReducer;

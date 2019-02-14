@@ -7,7 +7,12 @@ Enzyme.configure({ adapter: new Adapter() });
 
 function setup() {
   const props = {
-    registerUser: jest.fn()
+    loginUser: jest.fn(),
+    name: "andela",
+    placeholder: "this is andela",
+    type: "andela",
+    onChange: ()=>{},
+    spin: Symbol()
   };
   const wrapper = shallow(<TextInputGroup {...props} />);
 
@@ -20,5 +25,6 @@ function setup() {
 describe("TextInputGroup elements tests", () => {
   it("renders a the login form elements", () => {
     const { wrapper } = setup();
+    expect(wrapper.find({name:"andela"}).length).toBe(1);
   });
 });

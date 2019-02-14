@@ -11,7 +11,7 @@ import { FACEBOOK, GOOGLE, TWITTER } from '../../../actions/types';
 import SocialButton from './SocialButton';
 import './SocialLogin.scss';
 import Loader from '../../layout/Loader'
-import launchToast from '../../../helpers/Toaster'
+import launchToast from '../../../helpers/toaster'
 
 class SocialLoginComponent extends React.Component {
   state = {
