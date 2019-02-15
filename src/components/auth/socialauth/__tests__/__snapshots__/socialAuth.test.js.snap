@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login Component snapshot should render the Login component as expected 1`] = `
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
+`;

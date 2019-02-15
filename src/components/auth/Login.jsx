@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { loginUser } from "../../actions/userActions";
 import launchToast from "../../helpers/Toast";
 import logo from "../../assets/images/logo.png";
+import SocialLoginComponent from '../auth/socialauth/SocialLogin'
 
 class Login extends Component {
   state = {
@@ -64,6 +65,7 @@ class Login extends Component {
   render() {
     const { password, email, errors } = this.state;
     return (
+    
       <div className="card mb-3" style={{ width: "35rem", margin: "0 auto" }}>
         <div className="card-header" style={{ backgroundColor: "#ffffff" }}>
           <img src={logo} alt="logo" className="logo" />
@@ -93,7 +95,15 @@ class Login extends Component {
             />
           </form>
         </div>
+        <div className='mb-3'>
+        <div>OR</div>
+        
+      <p><small>Use your social accounts to login</small></p>
+        <SocialLoginComponent/>
       </div>
+      </div>
+      
+    
     );
   }
 }
