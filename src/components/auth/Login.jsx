@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import TextInputGroup from "../layout/TextInputGroup";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/userActions";
-import launchToast from "../../helpers/Toast";
+import launchToast from "../../helpers/toaster";
 import logo from "../../assets/images/logo.png";
+import {Link} from 'react-router-dom';
 import SocialLoginComponent from '../auth/socialauth/SocialLogin'
 
 class Login extends Component {
@@ -98,8 +99,10 @@ class Login extends Component {
             />
           </form>
         </div>
-        <div className='mb-3 text-center'>
-        <div >OR</div>
+        <div>Forgot password?<Link to="/password-reset">Click here</Link></div>
+        <div className='mb-3'>
+
+        <div>OR</div>
         
       <p className="w-100"><small  className="text-center">Use your social accounts to login</small></p>
         <SocialLoginComponent/>

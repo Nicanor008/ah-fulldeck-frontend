@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/auth/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SignUp from "./components/auth/SignUp";
-
+import ResetPassword from './components/auth/ResetPassword';
+import UpdatePassword from './components/auth/UpdatePassword'
 import "./App.scss";
 import AllArticles from "./components/articles/AllArticles";
 import SingleArticle from "./components/articles/SingleArticle";
@@ -37,6 +38,8 @@ class App extends Component {
             <Route path="/createarticle" exact component={CreateArticle} />
             <Route path="/:slug" exact component={SingleArticle} />
             <Route component={NotFound}/>
+            <Route exact path="/password-reset" component = {ResetPassword} />
+            <Route exact path="/password-update/:token" component = {UpdatePassword} />
           </Switch>
         </div>
           </Router>

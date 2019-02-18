@@ -10,5 +10,6 @@ if (token) {
   };
 }
 axios.defaults.baseURL = config.BASE_URL;
+axios.defaults.baseURL = "http://127.0.0.1:8000";
 
 export default axiosConfig;

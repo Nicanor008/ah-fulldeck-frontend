@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import Loader from "../layout/Loader";
 import uploader from "../../assets/Uploader";
 import NotFound from "../layout/NotFound";
-import launchToast from "../../helpers/Toaster";
+import launchToast from "../../helpers/toaster";
 import NavBar from "../layout/Navbar";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/lib/ReactCrop.scss";
