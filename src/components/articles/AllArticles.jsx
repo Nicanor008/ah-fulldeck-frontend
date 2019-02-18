@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Article from './Article';
 import { getAllArticles } from '../../actions/articleActions';
 import TitleCapture from '../banner';
-import NavBar from '../navBar';
 import config from '../../config';
 import Loader from '../layout/Loader';
 
@@ -45,7 +44,6 @@ class AllArticles extends Component {
 
     return (
       <div>
-        <NavBar />
         <TitleCapture />
         <div className="container mt-3">
           <div className="container card border-0 bg-light">
@@ -58,6 +56,7 @@ class AllArticles extends Component {
                     author={article.author}
                     key={article.slug}
                     slug={article.slug}
+                    image_url={article.image_url}
                     created_at={new Date(article.created_at).toDateString()}
                     like={article.likes}
                     dislike={article.dislikes}
@@ -66,6 +65,7 @@ class AllArticles extends Component {
                 ))}
               </div>
             )}
+          
             {articles.article.count > config.PAGE_SIZE && (
               <div className="mx-auto">
                 <Pagination

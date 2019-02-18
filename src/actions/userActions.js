@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/named
 import { LOGIN_USER, LOGIN_ERROR } from './types';
 import axiosConfig from '../config/configAxios';
 

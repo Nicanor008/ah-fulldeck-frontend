@@ -9,7 +9,8 @@ const launchToast = (toastmessage, toastId, descId, status) => {
     desc.innerHTML = toastmessage;
   }
 
-
-  setTimeout(() => { toast.className = toast.className.replace('show', ''); }, 5000);
+  setTimeout(() => {
+    toast.className = toast.className.replace('show', '');
+  }, 5000);
 };
 export default launchToast;

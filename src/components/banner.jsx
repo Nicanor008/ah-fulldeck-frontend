@@ -1,19 +1,23 @@
 import React from 'react';
-// import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom';
+import '../assets/styles/articles.scss';
+import Auth from './auth/Auth';
 
 const TitleCapture = () => (
   <div className="container-fluid">
-    <div
-      className="jumbotron bg-light pt-5 pb-5 text-center"
-      style={{ height: '300px' }}
-    >
+    <div className="jumbotron bg-light pt-5 pb-5 text-center banner-jumbotron">
       <h1>Author's Haven</h1>
-      <p style={{ fontSize: '1.9rem' }} className="w-100 text-center">
+      <p className="banner-title text-center w-100">
         A social platform for the creative at heart
       </p>
-      <p style={{ fontSize: '1.5em' }} className="w-100 text-center">You curious?</p>
-      {/* <Link to=""></Link> */}
-      <button type="button" className="btn btn-success">Get Started</button>
+      {!Auth.isAuthenticated && (
+        <div>
+          <p className="banner-text w-100">You curious?</p>
+          <Link to="/signup" className="btn btn-success">
+            Get Started
+          </Link>
+        </div>
+      )}
     </div>
   </div>
 );

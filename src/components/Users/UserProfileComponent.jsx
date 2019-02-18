@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { getUserProfile } from '../../actions/Profile/userProfileAction';
 import Loader from '../layout/Loader';
 import NotFound from '../layout/NotFound';
-import NavBar from '../navBar';
 
 class UserProfileComponent extends Component {
   constructor(props) {
@@ -43,7 +42,6 @@ class UserProfileComponent extends Component {
     } = this.props.profile;
     return (
       <React.Fragment>
-        <NavBar />
         <div className="container bg-light">
           <div className="row profile p-3 mt-1">
             <div className="col-md-9">

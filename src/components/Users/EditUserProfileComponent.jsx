@@ -9,10 +9,9 @@ import {
   editUserProfile,
 } from '../../actions/Profile/userProfileAction';
 import Loader from '../layout/Loader';
-import uploader from '../../assets/Uploader';
+import uploader from '../../assets/uploader';
 import NotFound from '../layout/NotFound';
 import launchToast from '../../helpers/toaster';
-import NavBar from '../navBar';
 import {
   image64toCanvasRef,
   base64StringtoFile,
@@ -162,7 +161,6 @@ class EditUserProfileComponent extends Component {
     } = this.state;
     return (
       <React.Fragment>
-        <NavBar />
         <div>
           <div className="container bg-light bootstrap snippets">
             <div className="row">

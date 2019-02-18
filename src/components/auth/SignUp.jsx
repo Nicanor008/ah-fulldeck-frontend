@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 import Input from './InputFields';
 import { signUpUser } from '../../actions/signupActions';
-import logo from '../../assets/images/logo.png';
 import SocialLoginComponent from './socialauth/SocialLogin';
 
 class SignUp extends Component {
@@ -73,8 +72,8 @@ class SignUp extends Component {
 
     return (
       <div className="card mb-3" style={{ width: '35rem', margin: '0 auto' }}>
-        <div className="card-header" style={{ backgroundColor: '#ffffff' }}>
-          <img src={logo} alt="logo" className="logo" />
+        <div className="card-header " style={{ backgroundColor: '#ffffff', fontWeight:"bolder" }}>
+          <center>Create An Account</center>
         </div>
         <div className="card-body" style={{ backgroundColor: '#D3D3D3' }}>
           <p style={{ color: 'red' }}>{errorNoMatch && errorNoMatch}</p>
@@ -143,18 +142,20 @@ class SignUp extends Component {
             </button>
           </form>
         </div>
-        <div>
-          Already registered?
-          <Link to="/login">Login</Link>
-        </div>
-        <div className="mb-3">
-          <div>OR</div>
+        <center>
+          <div className="pt-2">
+            Already registered?
+            <Link to="/login">Login</Link>
+          </div>
+          <div className="mb-3">
+            <div>OR</div>
 
-          <p>
-            <small>Use your social accounts to login</small>
-          </p>
-          <SocialLoginComponent />
-        </div>
+            <p>
+              <small>Use your social accounts to login</small>
+            </p>
+            <SocialLoginComponent />
+          </div>
+        </center>
       </div>
     );
   }
