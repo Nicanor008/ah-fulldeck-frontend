@@ -30,12 +30,6 @@ class Login extends Component {
         history.push(`/`);
       }
     }
-    if (user.errors) {
-      if (user.errors.error) {
-        const message = user.errors.error[0];
-        launchToast(message, "toastFail", "descFail", "fail");
-      }
-    }
   }
   onSubmit = e => {
     e.preventDefault();
@@ -52,6 +46,14 @@ class Login extends Component {
       this.setState({ errors: { password: "password is required" } });
       return;
     }
+    const { user } = this.props;
+    if (user.errors) {
+      if (user.errors.error) {
+        const message = user.errors.error[0];
+        this.setState({ fuck: "message" });
+        launchToast(message, "toastFail", "descFail", "fail");
+      }
+    }
 
     const newLogin = {
       email,
@@ -59,6 +61,7 @@ class Login extends Component {
     };
 
     this.props.loginUser(newLogin);
+    this.setState({ errors: {} });
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -95,10 +98,10 @@ class Login extends Component {
             />
           </form>
         </div>
-        <div className='mb-3'>
-        <div>OR</div>
+        <div className='mb-3 text-center'>
+        <div >OR</div>
         
-      <p><small>Use your social accounts to login</small></p>
+      <p className="w-100"><small  className="text-center">Use your social accounts to login</small></p>
         <SocialLoginComponent/>
       </div>
       </div>

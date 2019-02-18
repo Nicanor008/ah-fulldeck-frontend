@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import validateInput from "../../helpers/validators";
 import { postArticle } from "../../actions/articleActions";
+import NavBar from "../layout/Navbar";
 
 class CreateArticle extends Component {
   state = {
@@ -42,7 +43,9 @@ class CreateArticle extends Component {
 
   render() {
     return (
-      <div className="CreateArticle">
+      <React.Fragment>
+      <NavBar />
+        <div className="CreateArticle">
         <div className="container mt-3">
           <div className="row">
             <div className="container card border-0 bg-light">
@@ -100,7 +103,9 @@ class CreateArticle extends Component {
         </div>
         {this.props.slug && <Redirect to="/" />}
       </div>
-    );
+    
+      </React.Fragment>
+      );
   }
 }
 

@@ -15,6 +15,7 @@ export const loginUser = credentials => async dispatch => {
       }
     })
     .catch(errors => {
+      console.log(errors.request)
       const err = JSON.parse(errors.request.response);
       dispatch({
         type: LOGIN_ERROR,

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { getSingleArticle } from "../../actions/articleActions";
 
 import pen from "../../assets/images/pen.jpg";
+import NavBar from "../layout/Navbar";
 
 class SingleArticle extends Component {
   state = {
@@ -19,6 +20,8 @@ class SingleArticle extends Component {
   render() {
     const { notFetching, article } = this.props;
     return (
+      <React.Fragment>
+      <NavBar />
       <div>
         {notFetching && (
           <div>
@@ -68,6 +71,8 @@ class SingleArticle extends Component {
           </div>
         )}
       </div>
+    
+      </React.Fragment>
     );
   }
 }

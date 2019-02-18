@@ -1,10 +1,13 @@
 import axios from "axios";
-import config from '.'
+import config from ".";
 
 const token = localStorage.getItem("token");
 const axiosConfig = axios;
 if (token) {
-  axios.defaults.headers.common.Authorization = `Token ${token}`;
+  axiosConfig.defaults.headers = {
+    "Content-Type": "application/json",
+    Authorization: `Token ${token}`,
+  };
 }
 axios.defaults.baseURL = config.BASE_URL;
 
