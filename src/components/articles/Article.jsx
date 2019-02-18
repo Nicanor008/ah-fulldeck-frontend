@@ -5,23 +5,47 @@ import pen from '../../assets/images/pen.jpg';
 
 const Article = article => (
   <div className="row">
-    <div className="col-md-8 card bg-light border-0 p-1">
+    <div className="col-md-9 card bg-light border border-dark p-1 mb-3 mx-auto">
       <Link
         to={{ pathname: `/${article.slug}`, article: { ...article } }}
         className="link-nostyle"
-        style={{ color: 'black', textDecoration: 'none' }}
+        style={{ color: "black", textDecoration: "none" }}
       >
-        <div className="card-text font-weight-bold ml-3">{article.title}</div>
-        <div className="card-body">
-          <div className="d-inline mr-2">
-            <img src={pen} alt="logo" className="logo" />
+        <div className="card-header bg-transparent">
+          <div className="row">
+            <div className="col col-sm-1">
+              <img
+                src={article.author.image}
+                alt=""
+                className="rounded-circle w-75 border ml-2"
+              />
+            </div>
+            <div>
+              <span className="font-weight-bold">
+                {article.author.username}
+              </span>
+              <br />
+              <span>{article.created_at}</span>
+            </div>
           </div>
-          <div className="d-inline">{article.description}</div>
+        </div>
+
+        <div className="card-body">
+          <div className="card-text font-weight-bold text-center ml-4">
+            {article.title}
+          </div>
+          <div className="row">
+          <div className="col col-md-5">
+            <img
+              src={pen}
+              alt="logo"
+              className="logo w-100 h-100 mx-3"
+            />
+          </div>
+          <div className="col col-md-5">{article.description}</div>
+          </div>
         </div>
       </Link>
-      <div className="card-text text-muted ml-3">
-        {article.author}&nbsp;&nbsp;&nbsp;{article.created_at}
-      </div>
       <hr />
     </div>
   </div>

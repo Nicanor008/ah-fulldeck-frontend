@@ -9,7 +9,7 @@ package-lock.json
 .env
 # testing
 /coverage
-
+*.snap
 # production
 /build
 

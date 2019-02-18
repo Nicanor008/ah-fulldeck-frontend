@@ -63,6 +63,7 @@ class SingleArticle extends Component {
                     {ReactHtmlParser(article.article.body)}
                   </div>
                 </div>
+                <div />
               </div>
             </div>
           )}
