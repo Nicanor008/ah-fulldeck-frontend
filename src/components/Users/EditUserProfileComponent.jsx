@@ -33,12 +33,8 @@ class EditUserProfileComponent extends Component {
         y: 10,
         width: 80,
         height: 80,
-<<<<<<< HEAD
+        aspect: 1 / 1,
       },
-=======
-        aspect:1/1
-      }
->>>>>>> feat(articles pagination) pagination to the articles
     };
   }
 
@@ -121,8 +117,11 @@ class EditUserProfileComponent extends Component {
         'descSuccess',
         'success',
       );
-      
-      uploader({ image: selectedFile } || {image:this.state.uploadedImage})
+      uploader({
+        image: selectedFile,
+      } || {
+        image: this.state.uploadedImage,
+      })
         .catch(err => console.log(err.request))
         .then(res => {
           if (res) {
@@ -233,7 +232,6 @@ class EditUserProfileComponent extends Component {
                               </div>
                               {uploadedImage && (
                                 <div>
-<<<<<<< HEAD
                                   <ReactCrop
                                     src={uploadedImage}
                                     crop={crop}
@@ -242,12 +240,6 @@ class EditUserProfileComponent extends Component {
                                   <canvas
                                     style={{ height: '0%', width: '0%' }}
                                     ref={this.imagePreviewCanvasRef}
-=======
-                                  <input
-                                    className="px-2 mx-auto"
-                                    type="file"
-                                    onChange={this.handleImageSrc}
->>>>>>> feat(articles pagination) pagination to the articles
                                   />
                                 </div>
                               )}

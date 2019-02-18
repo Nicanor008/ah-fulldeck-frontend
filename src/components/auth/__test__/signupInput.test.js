@@ -8,12 +8,12 @@ Enzyme.configure({ adapter: new Adapter() });
 function setup() {
   const props = {
     registerUser: jest.fn(),
-    name: "name",
-    placeholder: "Enter name",
-    value: "",
-    type: "",
+    name: 'name',
+    placeholder: 'Enter name',
+    value: '',
+    type: '',
     onChange: jest.fn(),
-    error: ""
+    error: '',
   };
   const wrapper = shallow(<Input {...props} />);
 
