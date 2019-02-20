@@ -1,12 +1,12 @@
-import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../../assets/styles/NavBar.scss";
-import { Link } from "react-router-dom";
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../assets/styles/NavBar.scss';
+import { Link } from 'react-router-dom';
 
-import logo from "../../assets/images/logo.png";
+import logo from '../../assets/images/logo.png';
 
 const NavBar = () => {
-  const username = JSON.parse(localStorage.getItem("user")).username;
+  const username = JSON.parse(localStorage.getItem('user')).username;
   return (
     <div className="container NavBar border border-secondary mt-1">
       <div className="row">

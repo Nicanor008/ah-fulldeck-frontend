@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import TextInputGroup from "../layout/TextInputGroup";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { addEmail } from "../../actions/resetActions";
-import logo from "../../assets/images/logo.png";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import TextInputGroup from '../layout/TextInputGroup';
+import { addEmail } from '../../actions/resetActions';
+import logo from '../../assets/images/logo.png';
 
 class ResetPassword extends Component {
   constructor() {
@@ -11,9 +11,8 @@ class ResetPassword extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      isSent: false,
-      email: "",
-      errors: {}
+      email: '',
+      errors: {},
     };
   }
 
@@ -21,36 +20,36 @@ class ResetPassword extends Component {
     e.preventDefault();
     const { email } = this.state;
 
-    //Check for errors
+    // Check for errors
 
-    if (email === "") {
-      this.setState({ errors: { email: "Email is required" } });
+    if (email === '') {
+      this.setState({ errors: { email: 'Email is required' } });
       return;
     }
     const newEmail = {
-      email
+      email,
     };
 
     this.props.addEmail(newEmail);
 
     // clear state
     this.setState({
-      email: "",
-      errors: {}
+      email: '',
+      errors: {},
     });
-
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
+
   render() {
     const { email, errors } = this.state;
 
     return (
-      <div className="card mb-3" style={{ width: "35rem", margin: "0 auto" }}>
-        <div className="card-header" style={{ backgroundColor: "#ffffff" }}>
+      <div className="card mb-3" style={{ width: '35rem', margin: '0 auto' }}>
+        <div className="card-header" style={{ backgroundColor: '#ffffff' }}>
           <img src={logo} alt="logo" className="logo" />
         </div>
-        <div className="card-body" style={{ backgroundColor: "#D3D3D3" }}>
+        <div className="card-body" style={{ backgroundColor: '#D3D3D3' }}>
           <form onSubmit={this.onSubmit}>
             <TextInputGroup
               name="email"
@@ -59,7 +58,7 @@ class ResetPassword extends Component {
               value={email}
               onChange={this.onChange}
               error={errors.email}
-              required={true}
+              required
             />
             <button
               type="submit"
@@ -81,15 +80,17 @@ class ResetPassword extends Component {
 }
 
 ResetPassword.propTypes = {
-  addEmail: PropTypes.func.isRequired
+  addEmail: PropTypes.func.isRequired,
 };
-
+ResetPassword.propTypes = {
+  isSent: PropTypes.bool.isRequired,
+};
 const mapStateToProps = state => ({
   message: state.resetPassword,
-  isSent: state.resetPassword.isSent
+  isSent: state.resetPassword.isSent,
 });
 
 export default connect(
   mapStateToProps,
-  { addEmail }
+  { addEmail },
 )(ResetPassword);

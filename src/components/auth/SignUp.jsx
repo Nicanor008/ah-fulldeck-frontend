@@ -1,31 +1,28 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-import Input from "./InputFields";
-import { signUpUser } from "../../actions/signupActions";
-import logo from "../../assets/images/logo.png";
-import SocialLoginComponent from '../../components/auth/socialauth/SocialLogin'
+import Input from './InputFields';
+import { signUpUser } from '../../actions/signupActions';
+import logo from '../../assets/images/logo.png';
+import SocialLoginComponent from './socialauth/SocialLogin';
 
 class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      errors: {},
-      success: {},
-      isLoading: false,
-      errorNoMatch: null
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      errorNoMatch: null,
     };
   }
 
   handleChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -35,15 +32,15 @@ class SignUp extends Component {
       user: {
         username: this.state.username,
         email: this.state.email,
-        password: this.state.password
-      }
+        password: this.state.password,
+      },
     };
     if (this.state.password !== this.state.confirmPassword) {
-      this.setState({ errorNoMatch: "Passwords do not match" });
+      this.setState({ errorNoMatch: 'Passwords do not match' });
     } else {
       this.props.signUpUser(userData);
       this.setState({
-        errorNoMatch: null
+        errorNoMatch: null,
       });
     }
   };
@@ -51,7 +48,7 @@ class SignUp extends Component {
   onSuccess = () => {
     setTimeout(() => {
       const { history } = this.props;
-      history.push("/");
+      history.push('/');
     }, 3000);
   };
 
@@ -71,20 +68,20 @@ class SignUp extends Component {
       email,
       password,
       confirmPassword,
-      errorNoMatch
+      errorNoMatch,
     } = this.state;
 
     return (
-      <div className="card mb-3" style={{ width: "35rem", margin: "0 auto" }}>
-        <div className="card-header" style={{ backgroundColor: "#ffffff" }}>
+      <div className="card mb-3" style={{ width: '35rem', margin: '0 auto' }}>
+        <div className="card-header" style={{ backgroundColor: '#ffffff' }}>
           <img src={logo} alt="logo" className="logo" />
         </div>
-        <div className="card-body" style={{ backgroundColor: "#D3D3D3" }}>
-          <p style={{ color: "red" }}>{errorNoMatch && errorNoMatch}</p>
+        <div className="card-body" style={{ backgroundColor: '#D3D3D3' }}>
+          <p style={{ color: 'red' }}>{errorNoMatch && errorNoMatch}</p>
           <form onSubmit={this.onSubmit}>
-            <p style={{ color: "green" }}>
-              {message &&
-                "User registered successfully. Check your mail for verification"}
+            <p style={{ color: 'green' }}>
+              {message
+                && 'User registered successfully. Check your mail for verification'}
             </p>
             {message ? this.onSuccess() : null}
             <div className="form-group mt-4 pb-0">
@@ -96,7 +93,7 @@ class SignUp extends Component {
                 placeholder="Enter your username"
                 required
               />
-              <p style={{ color: "red" }}>{usernameErrorMessage}</p>
+              <p style={{ color: 'red' }}>{usernameErrorMessage}</p>
             </div>
 
             <div className="form-group mt-4 pb-0">
@@ -108,7 +105,7 @@ class SignUp extends Component {
                 placeholder="Enter your email"
                 required
               />
-              <p style={{ color: "red" }}>{emailErrorMessage}</p>
+              <p style={{ color: 'red' }}>{emailErrorMessage}</p>
             </div>
             <div className="form-group mt-4 pb-0">
               <Input
@@ -119,7 +116,7 @@ class SignUp extends Component {
                 placeholder="Enter your password"
                 required
               />
-              <p style={{ color: "red" }}>{passwordErrorMessage}</p>
+              <p style={{ color: 'red' }}>{passwordErrorMessage}</p>
             </div>
             <div className="form-group mt-4 pb-0">
               <Input
@@ -130,7 +127,7 @@ class SignUp extends Component {
                 placeholder="Confirm your password"
                 required
               />
-              <p style={{ color: "red" }}>{passwordErrorMessage}</p>
+              <p style={{ color: 'red' }}>{passwordErrorMessage}</p>
             </div>
             <button
               type="submit"
@@ -146,14 +143,17 @@ class SignUp extends Component {
             </button>
           </form>
         </div>
-		<div>Already registered?<Link to="/login">Login</Link></div>
+        <div>
+          Already registered?
+          <Link to="/login">Login</Link>
+        </div>
         <div className="mb-3">
           <div>OR</div>
 
           <p>
             <small>Use your social accounts to login</small>
           </p>
-          <SocialLoginComponent/>
+          <SocialLoginComponent />
         </div>
       </div>
     );
@@ -162,19 +162,20 @@ class SignUp extends Component {
 
 SignUp.propTypes = {
   signUpUser: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  isLoading: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
+  errors: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => {
-  return {
-    signup: state.signup,
-    isLoading: state.data.isLoading,
-    errors: state.data.errors,
-    message: state.data.message
-  };
-};
+const mapStateToProps = state => ({
+  signup: state.signup,
+  isLoading: state.data.isLoading,
+  errors: state.data.errors,
+  message: state.data.message,
+});
 
 export default connect(
   mapStateToProps,
-  { signUpUser }
+  { signUpUser },
 )(SignUp);

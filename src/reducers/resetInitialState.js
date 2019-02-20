@@ -1,7 +1,6 @@
 export default {
-	errors: {},
-    isSent: false,
-    isUpdated: false,
-    message: {}
+  errors: {},
+  isSent: false,
+  isUpdated: false,
+  message: {},
 };
-

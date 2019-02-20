@@ -1,6 +1,5 @@
 export default {
-	isSignedUp: false,
-	errors: {},
-	isLoading: false
+  isSignedUp: false,
+  errors: {},
+  isLoading: false,
 };
-

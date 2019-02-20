@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
-const SocialButton = (props) => {
+const SocialButton = props => {
   const {
-    provider, providerName, type, className, buttonClass,
+    provider,
+    providerName,
+    type,
+    className,
+    buttonClass,
     fetchSocialData,
   } = props;
   return (
@@ -13,7 +16,7 @@ const SocialButton = (props) => {
       className={`btn ${buttonClass}`}
       onClick={() => fetchSocialData(provider, providerName, type)}
     >
-      <i className={`fab ${className}`}/>
+      <i className={`fab ${className}`} />
     </button>
   );
 };

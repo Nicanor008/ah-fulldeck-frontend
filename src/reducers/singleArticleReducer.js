@@ -1,4 +1,4 @@
-import * as types from "../actions/types";
+import * as types from '../actions/types';
 
 const initialState = { notFetching: false };
 
@@ -8,7 +8,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         article: action.payload,
-        notFetching: true
+        notFetching: true,
       };
     }
     default:

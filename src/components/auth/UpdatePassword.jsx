@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import TextInputGroup from "../layout/TextInputGroup";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { updatePassword } from "../../actions/resetActions";
-import logo from "../../assets/images/logo.png";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import TextInputGroup from '../layout/TextInputGroup';
+import { updatePassword } from '../../actions/resetActions';
+import logo from '../../assets/images/logo.png';
 
 class UpdatePassword extends Component {
   constructor() {
@@ -12,34 +12,33 @@ class UpdatePassword extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.state = {
-      isUpdated: false,
-      password: "",
-      confirm_password: "",
-      errors: {}
+      password: '',
+      confirmPassword: '',
+      errors: {},
     };
   }
 
   onSubmit = e => {
     e.preventDefault();
-    const { password, confirm_password } = this.state;
+    const { password, confirmPassword } = this.state;
 
-    //Check for errors
+    // Check for errors
 
-    if (password === "") {
-      this.setState({ errors: { password: "Password is required" } });
+    if (password === '') {
+      this.setState({ errors: { password: 'Password is required' } });
       return;
     }
 
-    if (confirm_password === "") {
+    if (confirmPassword === '') {
       this.setState({
-        errors: { confirm_password: "Confrim password is required" }
+        errors: { confirmPassword: 'Confrim password is required' },
       });
       return;
     }
 
-    if (password !== confirm_password) {
+    if (password !== confirmPassword) {
       this.setState({
-        errors: { confirm_password: "Passwords do not match" }
+        errors: { confirmPassword: 'Passwords do not match' },
       });
       return;
     }
@@ -48,40 +47,41 @@ class UpdatePassword extends Component {
     const newPassword = {
       token,
       password,
-      confirm_password
+      confirm_password: confirmPassword,
     };
 
     this.props.updatePassword(newPassword);
 
     // clear state
     this.setState({
-      password: "",
-      confirm_password: "",
-      errors: {}
+      password: '',
+      confirmPassword: '',
+      errors: {},
     });
 
     this.onSuccess();
-    
   };
+
   onChange = e => this.setState({ [e.target.name]: e.target.value });
+
   onSuccess = () => {
     setTimeout(() => {
       const { message } = this.props;
-      if(message.message === 'Your password has been reset') {
+      if (message.message === 'Your password has been reset') {
         const { history } = this.props;
         history.push('/login');
-      };
-      }, 3000);
+      }
+    }, 3000);
   };
-  
+
   render() {
-    const { password, confirm_password, errors } = this.state;
+    const { password, confirmPassword, errors } = this.state;
     return (
-      <div className="card mb-3" style={{ width: "35rem", margin: "0 auto" }}>
-        <div className="card-header" style={{ backgroundColor: "#ffffff" }}>
+      <div className="card mb-3" style={{ width: '35rem', margin: '0 auto' }}>
+        <div className="card-header" style={{ backgroundColor: '#ffffff' }}>
           <img src={logo} alt="logo" className="logo" />
         </div>
-        <div className="card-body" style={{ backgroundColor: "#D3D3D3" }}>
+        <div className="card-body" style={{ backgroundColor: '#D3D3D3' }}>
           <form onSubmit={this.onSubmit}>
             <TextInputGroup
               name="password"
@@ -92,12 +92,12 @@ class UpdatePassword extends Component {
               error={errors.password}
             />
             <TextInputGroup
-              name="confirm_password"
+              name="confirmPassword"
               placeholder="Enter confirm password"
               type="password"
-              value={confirm_password}
+              value={confirmPassword}
               onChange={this.onChange}
-              error={errors.confirm_password}
+              error={errors.confirmPassword}
             />
             <button
               type="submit"
@@ -119,16 +119,20 @@ class UpdatePassword extends Component {
 }
 
 UpdatePassword.propTypes = {
-  updatePassword: PropTypes.func.isRequired
+  updatePassword: PropTypes.func.isRequired,
+  isUpdated: PropTypes.func.isRequired,
+  message: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 // get the state and map them to props
 const mapStateToProps = state => ({
   message: state.updateReducer,
-  isUpdated: state.updateReducer.isUpdated
+  isUpdated: state.updateReducer.isUpdated,
 });
 
 export default connect(
   mapStateToProps,
-  { updatePassword }
+  { updatePassword },
 )(UpdatePassword);

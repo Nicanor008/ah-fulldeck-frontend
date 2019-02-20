@@ -1,12 +1,12 @@
-import { combineReducers } from "redux";
-import loginReducer from "./loginReducer";
-import { signUpReducer } from "./signupReducer";
-import socialAuth from './socialAuth'
+import { combineReducers } from 'redux';
+import loginReducer from './loginReducer';
+import { signUpReducer } from './signupReducer';
+import socialAuth from './socialAuth';
 
-import ArticleReducer from "./ArticleReducer";
-import singleArticleReducer from "./singleArticleReducer";
-import UserProfileReducer from "./Profile/userProfileReducer";
-import resetPassword from "./resetPassword";
+import ArticleReducer from './ArticleReducer';
+import singleArticleReducer from './singleArticleReducer';
+import UserProfileReducer from './Profile/userProfileReducer';
+import resetPassword from './resetPassword';
 import updateReducer from './updateReducer';
 
 const rootReducer = combineReducers({
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   socialAuth,
   profile: UserProfileReducer,
   resetPassword,
-  updateReducer
+  updateReducer,
 });
 
 export default rootReducer;

@@ -5,39 +5,51 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import * as loginActions from '../../../actions/socialAuth';
 import {
-  auth, GoogleProvider, FacebookProvider, TwitterProvider,
+  auth,
+  GoogleProvider,
+  FacebookProvider,
+  TwitterProvider,
 } from '../../../config/firebase';
 import { FACEBOOK, GOOGLE, TWITTER } from '../../../actions/types';
 import SocialButton from './SocialButton';
 import './SocialLogin.scss';
-import Loader from '../../layout/Loader'
-import launchToast from '../../../helpers/toaster'
+import Loader from '../../layout/Loader';
+import launchToast from '../../../helpers/toaster';
 
 class SocialLoginComponent extends React.Component {
   state = {
     providers: [
       {
-        provider: FacebookProvider, type: FACEBOOK, name: 'facebook', button_class: 'facebook', class_name: 'fa-facebook-square facebook',
+        provider: FacebookProvider,
+        type: FACEBOOK,
+        name: 'facebook',
+        button_class: 'facebook',
+        class_name: 'fa-facebook-square facebook',
       },
       {
-        provider: TwitterProvider, type: TWITTER, name: 'twitter', button_class: 'twitter', class_name: 'fa-twitter-square twitter',
+        provider: TwitterProvider,
+        type: TWITTER,
+        name: 'twitter',
+        button_class: 'twitter',
+        class_name: 'fa-twitter-square twitter',
       },
       {
-        provider: GoogleProvider, type: GOOGLE, name: 'google-oauth2', button_class: '', class_name: 'google',
+        provider: GoogleProvider,
+        type: GOOGLE,
+        name: 'google-oauth2',
+        button_class: '',
+        class_name: 'google',
       },
-      
     ],
-  }
+  };
 
   constructor(props) {
     super(props);
     this.getData = this.getData.bind(this);
     this.fetchSocialData = this.fetchSocialData.bind(this);
     this.onclickHandler = this.onclickHandler.bind(this);
-    
   }
 
-  
   onclickHandler(access) {
     let accesstoken = null;
     if (access.provider === 'twitter') {
@@ -55,34 +67,26 @@ class SocialLoginComponent extends React.Component {
     this.getData(accesstoken);
   }
 
-  fetchSocialData(oauthprovider, platform, authType) {
+  getData(accesstoken) {
     const dataFetch = this.props;
+    const url = 'http://127.0.0.1:8000/api/v1/social/login/';
     dataFetch.fetchUsers();
-    auth.signInWithPopup(oauthprovider).then(result => (
-      
-      {
-      type: authType,
-      payload: {
-        authData: {
-          provider: platform,
-          accessToken: result.credential.accessToken,
-          accessSecret: result.credential.secret,
+    axios
+      .post(url, accesstoken, {
+        headers: {
+          Accept: 'application/json',
         },
-        userDetails: {
-          name: result.additionalUserInfo.profile.name,
-          photo: result.user.photoURL,
-          email: result.user.email,
-        },
-      },
-      
-    })
-    ).then((response) => {
-      localStorage.setItem('username', response.payload.userDetails.name);
-      this.switch(response, dataFetch);
-      this.onclickHandler(response.payload.authData);
-    });
+        crossDomain: true,
+      })
+      .then(response => {
+        const { token } = response.data.user;
+        localStorage.setItem('token', token);
+        dataFetch.receivedUsers(response.data);
+      })
+      .catch(err => {
+        dataFetch.getError(err);
+      });
   }
-  
 
   switch = (response, dataFetch) => {
     switch (response.type) {
@@ -98,30 +102,37 @@ class SocialLoginComponent extends React.Component {
       default:
         break;
     }
-  }
+  };
 
-  getData(accesstoken) {
+  fetchSocialData(oauthprovider, platform, authType) {
     const dataFetch = this.props;
-    const url = 'http://127.0.0.1:8000/api/v1/social/login/';
     dataFetch.fetchUsers();
-    axios.post(url, accesstoken, {
-      headers: {
-        Accept: 'application/json',
-        
-      },
-      crossDomain: true,
-    })
-      .then((response) => {
-        const { token } = response.data.user;
-        localStorage.setItem('token', token);
-        dataFetch.receivedUsers(response.data);
-      })
-      .catch((err) => {
-        dataFetch.getError(err);
+    auth
+      .signInWithPopup(oauthprovider)
+      .then(result => ({
+        type: authType,
+        payload: {
+          authData: {
+            provider: platform,
+            accessToken: result.credential.accessToken,
+            accessSecret: result.credential.secret,
+          },
+          userDetails: {
+            name: result.additionalUserInfo.profile.name,
+            photo: result.user.photoURL,
+            email: result.user.email,
+          },
+        },
+      }))
+      .then(response => {
+        localStorage.setItem('username', response.payload.userDetails.name);
+        this.switch(response, dataFetch);
+        this.onclickHandler(response.payload.authData);
       });
   }
 
-  renderButton=providers => (
+
+  renderButton = providers => (
     <div className="btn-group">
       {providers.map(providerName => (
         <SocialButton
@@ -132,24 +143,33 @@ class SocialLoginComponent extends React.Component {
           className={providerName.class_name}
           buttonClass={providerName.button_class}
           fetchSocialData={() => {
-            this.fetchSocialData(providerName.provider, providerName.name, providerName.type);
-          }
-              }
+            this.fetchSocialData(
+              providerName.provider,
+              providerName.name,
+              providerName.type,
+            );
+          }}
         />
       ))}
     </div>
-  )
+  );
 
   render() {
     const { msg } = this.props;
     const { providers } = this.state;
-    
+
     return (
       <div>
-          
-        { msg === 'success' ? launchToast(`${localStorage.getItem('username')} logged in successfully`,'toastSuccess','descSuccess','success'): null}
-        { msg === 'success' ? <Redirect to="/" /> : null } 
-        { msg === 'fetching' ? (<Loader/>) : null }
+        {msg === 'success'
+          ? launchToast(
+            `${localStorage.getItem('username')} logged in successfully`,
+            'toastSuccess',
+            'descSuccess',
+            'success',
+          )
+          : null}
+        {msg === 'success' ? <Redirect to="/" /> : null}
+        {msg === 'fetching' ? <Loader /> : null}
 
         {this.renderButton(providers)}
       </div>
@@ -160,7 +180,8 @@ export function mapStateToProps(state, myProps) {
   if (state.socialAuth) {
     return {
       socialAuth: state.socialAuth,
-      msg: state.socialAuth.message,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    g: state.socialAuth.message,
+      msg: state.socialAuth.message,
+      g: state.socialAuth.message,
       myProps,
     };
   }
@@ -185,4 +206,7 @@ SocialLoginComponent.defaultProps = {
 SocialLoginComponent.propTypes = {
   msg: PropTypes.string,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(SocialLoginComponent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SocialLoginComponent);
