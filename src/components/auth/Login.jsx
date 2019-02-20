@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextInputGroup from '../layout/TextInputGroup';
-import { loginUser } from '../../actions/userActions';
 import launchToast from '../../helpers/toaster';
+import { loginUser } from '../../actions/userActions';
 import logo from '../../assets/images/logo.png';
 import SocialLoginComponent from './socialauth/SocialLogin';
+import Auth from './Auth';
 
 class Login extends Component {
   state = {
@@ -20,15 +21,10 @@ class Login extends Component {
 
     if (user.user) {
       if (user.user.success) {
+        Auth.authenticate();
         const username = user.user.username;
 
-        launchToast(
-          `${username} logged in successfully`,
-
-          'toastSuccess',
-          'descSuccess',
-          'success',
-        );
+        launchToast(`${username} logged in successfully`, 'toastSuccess', 'descSuccess', 'success');
         localStorage.setItem('user', JSON.stringify(user.user));
         localStorage.setItem('token', user.user.token);
         history.push('/');
@@ -36,7 +32,7 @@ class Login extends Component {
     }
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
     const { email, password } = this.state;
@@ -66,7 +62,7 @@ class Login extends Component {
     this.setState({ errors: {} });
   };
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     const { password, email, errors } = this.state;
@@ -93,11 +89,7 @@ class Login extends Component {
               error={errors.password}
             />
 
-            <input
-              type="submit"
-              value="Login user"
-              className="btn btn-success btn-block"
-            />
+            <input type="submit" value="Login user" className="btn btn-success btn-block" />
           </form>
         </div>
         <div>
@@ -108,9 +100,7 @@ class Login extends Component {
           <div>OR</div>
 
           <p className="w-100">
-            <small className="text-center">
-              Use your social accounts to login
-            </small>
+            <small className="text-center">Use your social accounts to login</small>
           </p>
           <SocialLoginComponent />
         </div>
@@ -123,10 +113,7 @@ Login.propTypes = {
   user: PropTypes.object.isRequired,
   loginUser: PropTypes.func.isRequired,
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.login,
 });
-export default connect(
-  mapStateToProps,
-  { loginUser },
-)(Login);
+export default connect(mapStateToProps, { loginUser })(Login);

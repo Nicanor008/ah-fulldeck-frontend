@@ -1,0 +1,24 @@
+.thumbsup {
+  color: #008000;
+}
+.thumbsdown {
+  color: #ff0000;
+}
+
+.thumbsup:hover {
+  color: #008000;
+  cursor: pointer;
+}
+
+.thumbsdown:hover {
+  color: #ff0000;
+  cursor: pointer;
+}
+
+.like-spinners {
+  font-size: 24px;
+}
+
+.likecontainer {
+  padding: 1%;
+}
