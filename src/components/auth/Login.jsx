@@ -1,64 +1,65 @@
-import React, { Component } from "react";
-import TextInputGroup from "../layout/TextInputGroup";
-import { connect } from "react-redux";
-import { loginUser } from "../../actions/userActions";
-import launchToast from "../../helpers/toaster";
-import logo from "../../assets/images/logo.png";
-import {Link} from 'react-router-dom';
-import SocialLoginComponent from '../auth/socialauth/SocialLogin'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import TextInputGroup from '../layout/TextInputGroup';
+import { loginUser } from '../../actions/userActions';
+import launchToast from '../../helpers/toaster';
+import logo from '../../assets/images/logo.png';
+import SocialLoginComponent from './socialauth/SocialLogin';
 
 class Login extends Component {
   state = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     errors: {},
-    isLoading: false,
-    success: false
   };
+
   componentDidUpdate() {
     const { user, history } = this.props;
+
     if (user.user) {
       if (user.user.success) {
         const username = user.user.username;
+
         launchToast(
           `${username} logged in successfully`,
-          "toastSuccess",
-          "descSuccess",
-          "success"
+
+          'toastSuccess',
+          'descSuccess',
+          'success',
         );
-        localStorage.setItem("user", JSON.stringify(user.user));
-        localStorage.setItem("token", user.user.token);
-        history.push(`/`);
+        localStorage.setItem('user', JSON.stringify(user.user));
+        localStorage.setItem('token', user.user.token);
+        history.push('/');
       }
     }
   }
+
   onSubmit = e => {
     e.preventDefault();
 
     const { email, password } = this.state;
 
     // Check For Errors
-    if (email === "") {
-      this.setState({ errors: { email: "Email is required" } });
+    if (email === '') {
+      this.setState({ errors: { email: 'Email is required' } });
       return;
     }
 
-    if (password === "") {
-      this.setState({ errors: { password: "password is required" } });
+    if (password === '') {
+      this.setState({ errors: { password: 'password is required' } });
       return;
     }
     const { user } = this.props;
-    if (user.errors) {
-      if (user.errors.error) {
-        const message = user.errors.error[0];
-        this.setState({ fuck: "message" });
-        launchToast(message, "toastFail", "descFail", "fail");
-      }
+    if (user.errors && user.errors.error) {
+      const message = user.errors.error[0];
+      launchToast(message, 'toastFail', 'descFail', 'fail');
     }
 
     const newLogin = {
       email,
-      password
+      password,
     };
 
     this.props.loginUser(newLogin);
@@ -66,15 +67,15 @@ class Login extends Component {
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
+
   render() {
     const { password, email, errors } = this.state;
     return (
-    
-      <div className="card mb-3" style={{ width: "35rem", margin: "0 auto" }}>
-        <div className="card-header" style={{ backgroundColor: "#ffffff" }}>
+      <div className="card mb-3" style={{ width: '35rem', margin: '0 auto' }}>
+        <div className="card-header" style={{ backgroundColor: '#ffffff' }}>
           <img src={logo} alt="logo" className="logo" />
         </div>
-        <div className="card-body" style={{ backgroundColor: "#D3D3D3" }}>
+        <div className="card-body" style={{ backgroundColor: '#D3D3D3' }}>
           <form onSubmit={this.onSubmit}>
             <TextInputGroup
               name="email"
@@ -99,24 +100,33 @@ class Login extends Component {
             />
           </form>
         </div>
-        <div>Forgot password?<Link to="/password-reset">Click here</Link></div>
-        <div className='mb-3'>
+        <div>
+          Forgot password?
+          <Link to="/password-reset">Click here</Link>
+        </div>
+        <div className="mb-3">
+          <div>OR</div>
 
-        <div>OR</div>
-        
-      <p className="w-100"><small  className="text-center">Use your social accounts to login</small></p>
-        <SocialLoginComponent/>
+          <p className="w-100">
+            <small className="text-center">
+              Use your social accounts to login
+            </small>
+          </p>
+          <SocialLoginComponent />
+        </div>
       </div>
-      </div>
-      
-    
     );
   }
 }
+Login.propTypes = {
+  history: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  loginUser: PropTypes.func.isRequired,
+};
 const mapStateToProps = state => ({
-  user: state.login
+  user: state.login,
 });
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { loginUser },
 )(Login);

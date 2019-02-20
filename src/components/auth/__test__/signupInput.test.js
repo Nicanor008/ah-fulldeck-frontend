@@ -6,19 +6,25 @@ import Input from '../InputFields';
 Enzyme.configure({ adapter: new Adapter() });
 
 function setup() {
-	const props = {
-		registerUser: jest.fn()
-	};
-	const wrapper = shallow(<Input {...props} />);
+  const props = {
+    registerUser: jest.fn(),
+    name: "name",
+    placeholder: "Enter name",
+    value: "",
+    type: "",
+    onChange: jest.fn(),
+    error: ""
+  };
+  const wrapper = shallow(<Input {...props} />);
 
-	return {
-		props,
-		wrapper
-	};
+  return {
+    props,
+    wrapper,
+  };
 }
 
 describe('Signup elements tests', () => {
-	it('renders a the signup form elements', () => {
-		const { wrapper } = setup();
-	});
+  it('renders a the signup form elements', () => {
+    const { wrapper } = setup();
+  });
 });

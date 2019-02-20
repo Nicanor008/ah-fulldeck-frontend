@@ -1,17 +1,13 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import ReactHtmlParser from 'react-html-parser';
+import { connect } from 'react-redux';
+import { getSingleArticle } from '../../actions/articleActions';
 
-import ReactHtmlParser from "react-html-parser";
-import { connect } from "react-redux";
-import { getSingleArticle } from "../../actions/articleActions";
-
-import pen from "../../assets/images/pen.jpg";
-import NavBar from "../layout/Navbar";
+import pen from '../../assets/images/pen.jpg';
+import NavBar from '../layout/Navbar';
 
 class SingleArticle extends Component {
-  state = {
-    fetched: false,
-    article: {}
-  };
   componentDidMount() {
     const slug = this.props.match.params.slug;
     this.props.getSingleArticle(slug);
@@ -21,70 +17,74 @@ class SingleArticle extends Component {
     const { notFetching, article } = this.props;
     return (
       <React.Fragment>
-      <NavBar />
-      <div>
-        {notFetching && (
-          <div>
-            <div className="container mt-3">
-              <div className="container card border-0 bg-light">
-                <div className="card-title border-0 bg-light">
-                  <img
-                    src={article.article.author.image}
-                    alt="userimage"
-                    className="logo img-fluid rounded"
-                  />
-                  <p className="d-inline text-muted ml-2">
-                    <strong>
-                      {article.article.author.username}
-                      <span
-                        className="ml-2 text-secondary-10"
-                        style={{ fontFamily: "Courier New" }}
-                      >
-                        {new Date(article.article.created_at).toDateString()}
-                      </span>
-                    </strong>
-                  </p>
+        <NavBar />
+        <div>
+          {notFetching && (
+            <div>
+              <div className="container mt-3">
+                <div className="container card border-0 bg-light">
+                  <div className="card-title border-0 bg-light">
+                    <img
+                      src={article.article.author.image}
+                      alt="userimage"
+                      className="logo img-fluid rounded"
+                    />
+                    <p className="d-inline text-muted ml-2">
+                      <strong>
+                        {article.article.author.username}
+                        <span
+                          className="ml-2 text-secondary-10"
+                          style={{ fontFamily: 'Courier New' }}
+                        >
+                          {new Date(article.article.created_at).toDateString()}
+                        </span>
+                      </strong>
+                    </p>
 
-                  <h2 className="d-inline text-center pl-4">
-                    <strong>{article.article.title}</strong>
-                  </h2>
-                  <p className="card-subtitle mb-2 " />
-                </div>
-                <div />
+                    <h2 className="d-inline text-center pl-4">
+                      <strong>{article.article.title}</strong>
+                    </h2>
+                    <p className="card-subtitle mb-2 " />
+                  </div>
+                  <div />
 
-                <center>
-                  <img
-                    src={pen}
-                    alt="logo"
-                    className="img-fluid"
-                    style={{ height: "350px", width: "80%" }}
-                  />
-                </center>
-                <div className="card-text border-0 bg-light text-muted mt-2">
-                  {article.article.description}
-                </div>
-                <div className="card-text border-0 bg-light mb-4 mt-2">
-                  {ReactHtmlParser(article.article.body)}
+                  <center>
+                    <img
+                      src={pen}
+                      alt="logo"
+                      className="img-fluid"
+                      style={{ height: '350px', width: '80%' }}
+                    />
+                  </center>
+                  <div className="card-text border-0 bg-light text-muted mt-2">
+                    {article.article.description}
+                  </div>
+                  <div className="card-text border-0 bg-light mb-4 mt-2">
+                    {ReactHtmlParser(article.article.body)}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
-    
+          )}
+        </div>
       </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = state =>
-  // console.log(state.hello.notFetching)
-  ({
-    article: state.article.article,
-    notFetching: state.article.notFetching
-  });
+SingleArticle.propTypes = {
+  slug: PropTypes.string.isRequired,
+  match: PropTypes.object.isRequired,
+  getSingleArticle: PropTypes.func.isRequired,
+  notFetching: PropTypes.bool.isRequired,
+  article: PropTypes.object.isRequired,
+};
+const mapStateToProps = state => ({
+  article: state.article.article,
+  notFetching: state.article.notFetching,
+});
 
 export default connect(
   mapStateToProps,
-  { getSingleArticle }
+  { getSingleArticle },
 )(SingleArticle);

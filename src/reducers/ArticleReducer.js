@@ -1,6 +1,6 @@
-import * as types from "../actions/types";
+import * as types from '../actions/types';
 
-const initialState = { notFetching: false, slug: "" };
+const initialState = { notFetching: false, slug: '' };
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -8,18 +8,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         articles: action.payload,
-        notFetching: true
+        notFetching: true,
       };
     }
 
     case types.CREATE_ARTICLE: {
-      return { ...state, article: action.payload, slug: "/" };
+      return { ...state, article: action.payload, slug: '/' };
     }
 
     case types.ISFETCHING: {
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
       };
     }
     default:

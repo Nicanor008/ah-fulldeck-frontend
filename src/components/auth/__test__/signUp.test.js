@@ -6,19 +6,19 @@ import Signup from '../SignUp';
 Enzyme.configure({ adapter: new Adapter() });
 
 function setup() {
-	const props = {
-		registerUser: jest.fn()
-	};
-	const wrapper = shallow(<Signup {...props} />);
+  const props = {
+    registerUser: jest.fn(),
+  };
+  const wrapper = shallow(<Signup {...props} />);
 
-	return {
-		props,
-		wrapper
-	};
+  return {
+    props,
+    wrapper,
+  };
 }
 
 describe('Signup elements tests', () => {
-	it('renders a the signup form elements', () => {
-		const { wrapper } = setup();
-	});
+  it('renders a the signup form elements', () => {
+    const { wrapper } = setup();
+  });
 });

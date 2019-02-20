@@ -1,14 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import pen from "../../assets/images/pen.jpg";
+import pen from '../../assets/images/pen.jpg';
 
 const Article = article => (
   <div className="row">
     <div className="col-md-8 card bg-light border-0 p-1">
       <Link
         to={{ pathname: `/${article.slug}`, article: { ...article } }}
-        className="link-nostyle" style={{ color: "black", textDecoration:"none"}}
+        className="link-nostyle"
+        style={{ color: 'black', textDecoration: 'none' }}
       >
         <div className="card-text font-weight-bold ml-3">{article.title}</div>
         <div className="card-body">

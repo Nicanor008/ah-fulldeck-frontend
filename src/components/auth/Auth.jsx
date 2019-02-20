@@ -1,5 +1,5 @@
 const validToken = () => {
-  const token = window.localStorage.getItem("token");
+  const token = window.localStorage.getItem('token');
   if (!token) {
     return false;
   }
@@ -13,7 +13,7 @@ const Auth = {
   },
   signout() {
     this.isAuthenticated = false;
-  }
+  },
 };
 
 export default Auth;

@@ -1,13 +1,13 @@
-const validateInput = data => {
-  let errors = {};
-  Object.keys(data).forEach(field => {
-    if (data[field] === "") {
+const validateInput = (data) => {
+  const errors = {};
+  Object.keys(data).forEach((field) => {
+    if (data[field] === '') {
       errors[field] = `Article ${field} is required`;
     }
   });
   return {
     errors,
-    isValid: errors ? false : true
+    isValid: !errors,
   };
 };
 

@@ -1,16 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import Article from "./Article";
-import { getAllArticles } from "../../actions/articleActions";
-import TitleCapture from "../banner";
-import NavBar from "../layout/Navbar";
+import Article from './Article';
+import { getAllArticles } from '../../actions/articleActions';
+import TitleCapture from '../banner';
+import NavBar from '../layout/Navbar';
 
 class AllArticles extends Component {
-  state = {
-    fetched: false
-  };
-
   componentDidMount() {
     this.props.getAllArticles();
   }
@@ -19,7 +16,7 @@ class AllArticles extends Component {
     const { notFetching, articles } = this.props;
     return (
       <div>
-      <NavBar/>
+        <NavBar />
         <TitleCapture />
         <div className="container mt-3">
           <div className="container card border-0 bg-light">
@@ -44,13 +41,17 @@ class AllArticles extends Component {
     );
   }
 }
-
+AllArticles.propTypes = {
+  notFetching: PropTypes.bool.isRequired,
+  articles: PropTypes.object.isRequired,
+  getAllArticles: PropTypes.func.isRequired,
+};
 const mapStateToProps = state => ({
   articles: state.articles.articles,
-  notFetching: state.articles.notFetching
+  notFetching: state.articles.notFetching,
 });
 
 export default connect(
   mapStateToProps,
-  { getAllArticles }
+  { getAllArticles },
 )(AllArticles);

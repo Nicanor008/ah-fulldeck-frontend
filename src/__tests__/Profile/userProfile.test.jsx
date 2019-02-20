@@ -1,15 +1,15 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import ResetPassword from '../ResetPassword';
+import UserProfileComponent from '../../components/Users/UserProfileComponent';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 function setup() {
   const props = {
-    addEmail: jest.fn(),
+    registerUser: jest.fn(),
   };
-  const wrapper = shallow(<ResetPassword {...props} />);
+  const wrapper = shallow(<UserProfileComponent {...props} />);
 
   return {
     props,
@@ -17,8 +17,8 @@ function setup() {
   };
 }
 
-describe('ResetPassword elements tests', () => {
-  it('renders a the email form elements', () => {
+describe('User profile elements tests', () => {
+  it('renders a the user profile', () => {
     const { wrapper } = setup();
   });
 });

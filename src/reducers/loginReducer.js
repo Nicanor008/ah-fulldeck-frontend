@@ -1,12 +1,13 @@
-import { LOGIN_USER, LOGIN_ERROR } from "../actions/types";
+import { LOGIN_USER, LOGIN_ERROR } from '../actions/types';
+
 const initialState = {};
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case LOGIN_USER:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
       };
     case LOGIN_ERROR:
       return { ...state, errors: action.payload };
