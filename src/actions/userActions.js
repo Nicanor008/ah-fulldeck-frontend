@@ -2,12 +2,12 @@ import { LOGIN_USER, LOGIN_ERROR } from './types';
 import axiosConfig from '../config/configAxios';
 
 // eslint-disable-next-line import/prefer-default-export
-export const loginUser = credentials => async (dispatch) => {
+export const loginUser = credentials => async dispatch => {
   await axiosConfig
     .post('/api/v1/users/login/', {
       user: credentials,
     })
-    .then((res) => {
+    .then(res => {
       if (res) {
         dispatch({
           type: LOGIN_USER,
@@ -15,7 +15,7 @@ export const loginUser = credentials => async (dispatch) => {
         });
       }
     })
-    .catch((errors) => {
+    .catch(errors => {
       const err = JSON.parse(errors.request.response);
       dispatch({
         type: LOGIN_ERROR,

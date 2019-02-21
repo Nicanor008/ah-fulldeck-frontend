@@ -12,7 +12,7 @@ import Loader from '../layout/Loader';
 import uploader from '../../assets/Uploader';
 import NotFound from '../layout/NotFound';
 import launchToast from '../../helpers/toaster';
-import NavBar from '../layout/Navbar';
+import NavBar from '../navBar';
 import {
   image64toCanvasRef,
   base64StringtoFile,

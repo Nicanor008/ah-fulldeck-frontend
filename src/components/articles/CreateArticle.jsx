@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import validateInput from '../../helpers/validators';
 import { postArticle } from '../../actions/articleActions';
-import NavBar from '../layout/Navbar';
+import NavBar from '../navBar';
 
 class CreateArticle extends Component {
   state = {

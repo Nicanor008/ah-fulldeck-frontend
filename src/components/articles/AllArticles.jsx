@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Article from './Article';
 import { getAllArticles } from '../../actions/articleActions';
 import TitleCapture from '../banner';
-import NavBar from '../layout/Navbar';
+import NavBar from '../navBar';
 import config from '../../config';
 import Loader from '../layout/Loader';
 
