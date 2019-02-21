@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-
-import ReactHtmlParser from 'react-html-parser';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getSingleArticle } from '../../actions/articleActions';
+import ReactHtmlParser from 'react-html-parser';
 
+import Auth from '../auth/Auth';
+import { getSingleArticle } from '../../actions/articleActions';
 import pen from '../../assets/images/pen.jpg';
 import NavBar from '../layout/Navbar';
+import LikesDislikes from './LikeDislikeArticle';
 
 class SingleArticle extends Component {
   componentDidMount() {
@@ -63,6 +64,21 @@ class SingleArticle extends Component {
                           {ReactHtmlParser(article.article.body)}
                         </div>
                       </div>
+                      {Auth.isAuthenticated ? (
+                    <LikesDislikes {...this.props} />
+                  ) : (
+                    <div className="likecontainer">
+                      <i className="fa fa-thumbs-up fa-2x " />
+                      {' '}
+                      {article.article.likes}
+                      {' '}
+                      &nbsp;&nbsp;&nbsp;
+                      {' '}
+                      <i className="fa fa-thumbs-down fa-2x " />
+                      {' '}
+                      {article.article.dislikes}
+                    </div>
+                  )}
                     </div>
                   </div>
                   <div />
@@ -82,12 +98,9 @@ SingleArticle.propTypes = {
   notFetching: PropTypes.bool.isRequired,
   article: PropTypes.object.isRequired,
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   article: state.article.article,
   notFetching: state.article.notFetching,
 });
 
-export default connect(
-  mapStateToProps,
-  { getSingleArticle },
-)(SingleArticle);
+export default connect(mapStateToProps, { getSingleArticle })(SingleArticle);
