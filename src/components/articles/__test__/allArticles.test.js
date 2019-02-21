@@ -72,7 +72,7 @@ describe('Articles component', () => {
         </MemoryRouter>
       </Provider>,
     );
-    expect(wrapper.exists(<div className="container" />)).toBe(false);
+    expect(wrapper.exists('.container')).toBe(false);
   });
   it('Pagination should render without throwing an error', () => {
     const store = fakeStore({
