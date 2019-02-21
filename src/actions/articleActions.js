@@ -2,11 +2,12 @@
 import * as types from './types';
 import axiosWithHeader from '../config/configAxios';
 
-export const getAllArticles = () => async dispatch => {
+export const getAllArticles = (page = 1, page_size = 10) => async dispatch => {
   dispatch({
     type: types.ISFETCHING,
   });
-  return await axiosWithHeader.get('/api/v1/articles/').then(response => {
+  // eslint-disable-next-line camelcase
+  return await axiosWithHeader.get(`/api/v1/articles/?page=${page}&page_size=${page_size}`).then(response => {
     dispatch({
       type: types.GET_ARTICLES,
       payload: response.data,

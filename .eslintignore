@@ -1,5 +1,8 @@
 src/index.js
 src/serviceWorker.js
-**.scss
-**.test.js
+**/*.scss
+**/*.test.js
 src/assets/imageHandler.js
+src/**/*.scss
+*.scss
+*.test.js

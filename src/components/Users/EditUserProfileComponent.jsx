@@ -33,6 +33,7 @@ class EditUserProfileComponent extends Component {
         y: 10,
         width: 80,
         height: 80,
+        aspect: 1 / 1,
       },
     };
   }
@@ -116,7 +117,11 @@ class EditUserProfileComponent extends Component {
         'descSuccess',
         'success',
       );
-      uploader({ image: this.state.uploadedImage })
+      uploader({
+        image: selectedFile,
+      } || {
+        image: this.state.uploadedImage,
+      })
         .catch(err => console.log(err.request))
         .then(res => {
           if (res) {

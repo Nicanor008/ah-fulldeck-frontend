@@ -8,10 +8,10 @@ const TitleCapture = () => (
       style={{ height: '300px' }}
     >
       <h1>Author's Haven</h1>
-      <p style={{ fontSize: '1.9rem' }}>
+      <p style={{ fontSize: '1.9rem' }} className="w-100 text-center">
         A social platform for the creative at heart
       </p>
-      <p style={{ fontSize: '1.5em' }}>You curious?</p>
+      <p style={{ fontSize: '1.5em' }} className="w-100 text-center">You curious?</p>
       {/* <Link to=""></Link> */}
       <button type="button" className="btn btn-success">Get Started</button>
     </div>

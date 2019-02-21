@@ -11,8 +11,9 @@ function setup() {
     name: 'andela',
     placeholder: 'this is andela',
     type: 'andela',
-    value: "",
+    value: '',
     onChange: () => {},
+    // eslint-disable-next-line symbol-description
     spin: Symbol(),
   };
   const wrapper = shallow(<TextInputGroup {...props} />);
