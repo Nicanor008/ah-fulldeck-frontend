@@ -9,6 +9,8 @@ import pen from '../../assets/images/pen.jpg';
 import LikesDislikes from './LikeDislikeArticle';
 import NavBar from '../navBar';
 import CommentsContainer from '../comments/CommentsContainer';
+import Rating from '../rating/RatingArticle';
+import DisplayRating from '../rating/DisplayRating';
 
 class SingleArticle extends Component {
   componentDidMount() {
@@ -53,6 +55,7 @@ class SingleArticle extends Component {
                           </strong>
                         </h2>
                       </div>
+                      <DisplayRating {...this.props} />
                       <div className="row">
                         <div className="col col-md-5">
                           <img
@@ -65,21 +68,26 @@ class SingleArticle extends Component {
                           {ReactHtmlParser(article.article.body)}
                         </div>
                       </div>
-                      {Auth.isAuthenticated ? (
-                        <LikesDislikes {...this.props} />
-                      ) : (
-                        <div className="likecontainer">
-                          <i className="fa fa-thumbs-up fa-2x " />
-                          {' '}
-                          {article.article.likes}
-                          {' '}
-                      &nbsp;&nbsp;&nbsp;
-                          {' '}
-                          <i className="fa fa-thumbs-down fa-2x " />
-                          {' '}
-                          {article.article.dislikes}
+                      <div className="row">
+                        <div className="col col-md-4">
+                          {Auth.isAuthenticated ? (
+                            <LikesDislikes {...this.props} />
+                          ) : (
+                            <div className="likecontainer">
+                              <i className="fa fa-thumbs-up fa-2x " />
+                              {article.article.likes}
+                              &nbsp;&nbsp;&nbsp;
+                              <i className="fa fa-thumbs-down fa-2x " />
+                              &nbsp;&nbsp;&nbsp;
+                              <i className="fa fa-thumbs-down fa-2x " />
+                              {article.article.dislikes}
+                            </div>
+                          )}
                         </div>
-                      )}
+                      </div>
+                      <div className="col col-md-4">
+                        {Auth.isAuthenticated && <Rating {...this.props} />}
+                      </div>
                     </div>
                   </div>
                   <div />
@@ -101,9 +109,12 @@ SingleArticle.propTypes = {
   notFetching: PropTypes.bool.isRequired,
   article: PropTypes.object.isRequired,
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   article: state.article.article,
   notFetching: state.article.notFetching,
 });
 
-export default connect(mapStateToProps, { getSingleArticle })(SingleArticle);
+export default connect(
+  mapStateToProps,
+  { getSingleArticle },
+)(SingleArticle);

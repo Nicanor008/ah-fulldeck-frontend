@@ -42,6 +42,7 @@ class AllArticles extends Component {
       return <Loader />;
     }
     const { notFetching, articles } = this.props;
+
     return (
       <div>
         <NavBar />
@@ -60,6 +61,7 @@ class AllArticles extends Component {
                     created_at={new Date(article.created_at).toDateString()}
                     like={article.likes}
                     dislike={article.dislikes}
+                    rating={article.avg_rating.avg_rating}
                   />
                 ))}
               </div>
