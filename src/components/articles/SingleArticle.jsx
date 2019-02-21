@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
-
-import Auth from '../auth/Auth';
 import { getSingleArticle } from '../../actions/articleActions';
+import BookmarkArticle from './boomarks/Bookmark';
+import Auth from '../auth/Auth';
 import pen from '../../assets/images/pen.jpg';
-import NavBar from '../layout/Navbar';
 import LikesDislikes from './LikeDislikeArticle';
+import NavBar from '../navBar';
 
 class SingleArticle extends Component {
   componentDidMount() {
@@ -65,23 +65,24 @@ class SingleArticle extends Component {
                         </div>
                       </div>
                       {Auth.isAuthenticated ? (
-                    <LikesDislikes {...this.props} />
-                  ) : (
-                    <div className="likecontainer">
-                      <i className="fa fa-thumbs-up fa-2x " />
-                      {' '}
-                      {article.article.likes}
-                      {' '}
+                        <LikesDislikes {...this.props} />
+                      ) : (
+                        <div className="likecontainer">
+                          <i className="fa fa-thumbs-up fa-2x " />
+                          {' '}
+                          {article.article.likes}
+                          {' '}
                       &nbsp;&nbsp;&nbsp;
-                      {' '}
-                      <i className="fa fa-thumbs-down fa-2x " />
-                      {' '}
-                      {article.article.dislikes}
-                    </div>
-                  )}
+                          {' '}
+                          <i className="fa fa-thumbs-down fa-2x " />
+                          {' '}
+                          {article.article.dislikes}
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div />
+                  <BookmarkArticle {...this.props} />
                 </div>
               </div>
             </div>

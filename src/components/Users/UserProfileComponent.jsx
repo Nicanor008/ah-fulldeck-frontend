@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { getUserProfile } from '../../actions/Profile/userProfileAction';
 import Loader from '../layout/Loader';
 import NotFound from '../layout/NotFound';
-import NavBar from '../layout/Navbar';
+import NavBar from '../navBar';
 
 class UserProfileComponent extends Component {
   constructor(props) {
