@@ -7,7 +7,7 @@ export const loginUser = credentials => async dispatch => {
     .post('/api/v1/users/login/', {
       user: credentials,
     })
-    .then(res => {
+    .then((res) => {
       if (res) {
         dispatch({
           type: LOGIN_USER,
