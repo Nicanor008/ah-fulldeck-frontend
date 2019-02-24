@@ -10,6 +10,7 @@ import resetPassword from './resetPassword';
 import commentsReducer from './commentsReducer';
 import updateReducer from './updateReducer';
 import { likeDislike } from './likeDislikeReducer';
+import ratingReducer from './Rating/ratingReducer';
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   updateReducer,
   socialAuth,
   likeDislike,
+  rating: ratingReducer,
 });
 
 export default rootReducer;
