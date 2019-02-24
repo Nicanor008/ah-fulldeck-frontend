@@ -8,6 +8,7 @@ import Auth from '../auth/Auth';
 import pen from '../../assets/images/pen.jpg';
 import LikesDislikes from './LikeDislikeArticle';
 import NavBar from '../navBar';
+import CommentsContainer from '../comments/CommentsContainer';
 
 class SingleArticle extends Component {
   componentDidMount() {
@@ -84,6 +85,7 @@ class SingleArticle extends Component {
                   <div />
                   <BookmarkArticle {...this.props} />
                 </div>
+                <CommentsContainer {...this.props} />
               </div>
             </div>
           )}

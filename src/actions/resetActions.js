@@ -38,9 +38,7 @@ export const updatePassword = password => async (dispatch) => {
       });
       launchToaster(errors.errors.password, 'toastFail', 'descFail', 'fail');
     })
-
     .then((res) => {
-      // console.log("Response", res)
       if (res) {
         dispatch({
           type: UPDATE_PASSWORD,

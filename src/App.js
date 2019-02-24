@@ -12,9 +12,10 @@ import SingleArticle from './components/articles/SingleArticle';
 import CreateArticle from './components/articles/CreateArticle';
 import UserProfileComponent from './components/Users/UserProfileComponent';
 import EditUserProfileComponent from './components/Users/EditUserProfileComponent';
+import CommentsContainer from './components/comments/CommentsContainer';
 import Toaster from './components/layout/Toaster';
 import NotFound from './components/layout/NotFound';
-
+import PrivateRoute from './components/auth/PrivateRedirect';
 
 class App extends Component {
   render() {
@@ -38,13 +39,10 @@ class App extends Component {
             />
             <Route path="/" exact component={AllArticles} />
             <Route path="/createarticle" exact component={CreateArticle} />
+            <Route exact path="/password-reset" component={ResetPassword} />
+            <Route exact path="/password-update/:token" component={UpdatePassword} />
+            <PrivateRoute path="/:slug/comments" component={CommentsContainer} />
             <Route path="/:slug" exact component={SingleArticle} />
-            <Route path="/password-reset" component={ResetPassword} />
-            <Route
-              exact
-              path="/password-update/:token"
-              component={UpdatePassword}
-            />
             <Route component={NotFound} />
           </Switch>
         </div>

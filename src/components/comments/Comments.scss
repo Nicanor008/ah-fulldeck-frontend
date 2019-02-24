@@ -1,0 +1,24 @@
+.button-comments {
+  cursor: pointer;
+  float: right;
+  border-radius: 5px;
+  margin-right: 1rem; 
+}
+
+.button-comments #delete {
+  cursor: pointer;
+  color: rgba(231, 33, 33, 0.582);
+  border-radius: 5px;
+}
+
+.button-comments #reply {
+  cursor: pointer;
+  color: rgba(17, 182, 44, 0.726);
+  border-radius: 5px;
+}
+
+.button-comments #edit {
+  cursor: pointer;
+  color: rgba(33, 125, 231, 0.623);
+  border-radius: 5px;
+}
