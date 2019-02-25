@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextInputGroup from '../layout/TextInputGroup';
-import launchToast from '../../helpers/toaster';
 import { loginUser } from '../../actions/userActions';
-import logo from '../../assets/images/logo.png';
 import SocialLoginComponent from './socialauth/SocialLogin';
+import launchToast from '../../helpers/toaster';
 import Auth from './Auth';
 
 class Login extends Component {
@@ -68,10 +67,20 @@ class Login extends Component {
     const { password, email, errors } = this.state;
     return (
       <div className="card mb-3" style={{ width: '35rem', margin: '0 auto' }}>
-        <div className="card-header" style={{ backgroundColor: '#ffffff' }}>
-          <img src={logo} alt="logo" className="logo" />
+        <div
+          className="card-header text-center"
+          style={{
+            backgroundColor: '#ffffff',
+            fontWeight: 'bolder',
+            fontSize: '25px',
+          }}
+        >
+          Login
         </div>
-        <div className="card-body" style={{ backgroundColor: '#D3D3D3' }}>
+        <div
+          className="card-body"
+          style={{ backgroundColor: 'rgb(236, 228, 223)' }}
+        >
           <form onSubmit={this.onSubmit}>
             <TextInputGroup
               name="email"
@@ -92,18 +101,25 @@ class Login extends Component {
             <input type="submit" value="Login user" className="btn btn-success btn-block" />
           </form>
         </div>
-        <div>
-          Forgot password?
-          <Link to="/password-reset">Click here</Link>
-        </div>
-        <div className="mb-3">
-          <div>OR</div>
 
-          <p className="w-100">
-            <small className="text-center">Use your social accounts to login</small>
-          </p>
-          <SocialLoginComponent />
-        </div>
+        <center>
+          <div className="mb-3">
+            <div>OR</div>
+
+            <p>
+              <small>Use your social accounts to login</small>
+            </p>
+            <SocialLoginComponent />
+            <Link to="/password-reset">
+              <button type="button" className="d-inline mr-2 btn btn-default btn-md">Forgot Password</button>
+
+            </Link>
+            <Link to="/signup">
+              <button type="button" className="d-inline ml-1 btn btn-default btn-md">Create Account</button>
+
+            </Link>
+          </div>
+        </center>
       </div>
     );
   }

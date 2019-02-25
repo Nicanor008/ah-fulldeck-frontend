@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default (upload) => {
+export default upload => {
   const url = 'https://api.cloudinary.com/v1_1/fulldeck/upload';
   const formData = new FormData();
 

@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import "../../assets/styles/articles.scss";
 
 import pen from '../../assets/images/pen.jpg';
 import AllArticlesDisplayRating from '../rating/AllArticlesDisplayRating';
@@ -9,9 +10,8 @@ const Article = article => (
   <div className="row">
     <div className="col-md-9 card bg-light border border-dark p-1 mb-3 mx-auto">
       <Link
-        to={{ pathname: `/${article.slug}`, article: { ...article } }}
+        to={{ pathname: `/article/${article.slug}`, article: { ...article } }}
         className="link-nostyle"
-        style={{ color: 'black', textDecoration: 'none' }}
       >
         <div className="card-header bg-transparent">
           <div className="row">
@@ -38,7 +38,15 @@ const Article = article => (
           </div>
           <div className="row">
             <div className="col col-md-5">
-              <img src={pen} alt="logo" className="logo w-100 h-100 mx-3" />
+              {(article.image_url && (
+                <img
+                  src={article.image_url}
+                  alt="logo"
+                  className="logo w-100 h-100 mx-3"
+                />
+              )) || (
+                <img src={pen} alt="logo" className="logo w-100 h-100 mx-3" />
+              )}
             </div>
             <div className="col col-md-5">{article.description}</div>
           </div>

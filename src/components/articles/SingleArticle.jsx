@@ -1,30 +1,74 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
-import { getSingleArticle } from '../../actions/articleActions';
 import BookmarkArticle from './boomarks/Bookmark';
 import Auth from '../auth/Auth';
-import pen from '../../assets/images/pen.jpg';
-import LikesDislikes from './LikeDislikeArticle';
-import NavBar from '../navBar';
 import CommentsContainer from '../comments/CommentsContainer';
 import Rating from '../rating/RatingArticle';
 import DisplayRating from '../rating/DisplayRating';
+import { getSingleArticle, deleteArticle } from '../../actions/articleActions';
+import LikesDislikes from './LikeDislikeArticle'
+import launchToast from '../../helpers/toaster';
+import NotFound from '../layout/NotFound';
+import '../../assets/styles/articles.scss';
 
 class SingleArticle extends Component {
+  state = {
+    article: {}
+  };
+
   componentDidMount() {
     const slug = this.props.match.params.slug;
     this.props.getSingleArticle(slug);
   }
 
+  buttonDeleteArticle = () => {
+    const slug = this.props.article.article.slug;
+    this.props.deleteArticle(slug);
+    launchToast("Article Deleted", "toastSuccess", "descSuccess", "success");
+    this.props.history.push('/');
+    window.location.reload();
+  };
+  
+  checkLoggedInUser = () => {
+    const { article } = this.props;
+    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    if (loggedInUser) {
+      const user = JSON.parse(localStorage.getItem("user")).username;
+      if (user === this.props.article.article.author.username) {
+        return (
+          <React.Fragment>
+            <Link
+              to={{
+                pathname: `/article/edit/${article.article.slug}`,
+                article: { ...article }
+              }}
+              className="slug-link"
+            >
+              <button type="button" className="d-inline btn btn-success mr-1">
+                Edit
+              </button>
+            </Link>
+            <button
+              className="d-inline btn btn-danger ml-1"
+              onClick={this.buttonDeleteArticle}
+            >
+              Delete
+            </button>
+          </React.Fragment>
+        );
+      }
+    }
+  };
+
   render() {
     const { notFetching, article } = this.props;
     return (
       <React.Fragment>
-        <NavBar />
         <div>
-          {notFetching && (
+          {notFetching ? (
             <div>
               <div className="container mt-3">
                 <div className="container card border border-dark  bg-light">
@@ -50,7 +94,7 @@ class SingleArticle extends Component {
                     <div className="card-body">
                       <div className="card-text font-weight-bold text-center display-2">
                         <h2>
-                          <strong style={{ color: 'black' }}>
+                          <strong style={{ color: "black" }}>
                             {article.article.title}
                           </strong>
                         </h2>
@@ -58,11 +102,13 @@ class SingleArticle extends Component {
                       <DisplayRating {...this.props} />
                       <div className="row">
                         <div className="col col-md-5">
-                          <img
-                            src={pen}
-                            alt="logo"
-                            className="logo w-100 h-100 mx-3"
-                          />
+                          {article.article.image_url && (
+                            <img
+                              src={article.article.image_url}
+                              alt="ArticleImage"
+                              className="logo w-100 h-100 mx-3"
+                            />
+                          )}
                         </div>
                         <div className="col col-md-5">
                           {ReactHtmlParser(article.article.body)}
@@ -79,7 +125,6 @@ class SingleArticle extends Component {
                               &nbsp;&nbsp;&nbsp;
                               <i className="fa fa-thumbs-down fa-2x " />
                               &nbsp;&nbsp;&nbsp;
-                              <i className="fa fa-thumbs-down fa-2x " />
                               {article.article.dislikes}
                             </div>
                           )}
@@ -89,13 +134,17 @@ class SingleArticle extends Component {
                         {Auth.isAuthenticated && <Rating {...this.props} />}
                       </div>
                     </div>
+                    {this.checkLoggedInUser()}
                   </div>
                   <div />
                   <BookmarkArticle {...this.props} />
                 </div>
                 <CommentsContainer {...this.props} />
+                <div className="card-footer bg-light" />
               </div>
             </div>
+          ) : (
+            <NotFound />
           )}
         </div>
       </React.Fragment>
@@ -106,15 +155,17 @@ SingleArticle.propTypes = {
   slug: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
   getSingleArticle: PropTypes.func.isRequired,
+  deleteArticle:PropTypes.func.isRequired,
   notFetching: PropTypes.bool.isRequired,
-  article: PropTypes.object.isRequired,
+  article: PropTypes.object.isRequired
 };
+
 const mapStateToProps = state => ({
   article: state.article.article,
-  notFetching: state.article.notFetching,
+  notFetching: state.article.notFetching
 });
 
 export default connect(
   mapStateToProps,
-  { getSingleArticle },
+  { getSingleArticle, deleteArticle }
 )(SingleArticle);

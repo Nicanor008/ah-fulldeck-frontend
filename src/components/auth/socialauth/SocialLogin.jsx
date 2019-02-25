@@ -10,6 +10,7 @@ import {
   FacebookProvider,
   TwitterProvider,
 } from '../../../config/firebase';
+// eslint-disable-next-line import/named
 import { FACEBOOK, GOOGLE, TWITTER } from '../../../actions/types';
 import SocialButton from './SocialButton';
 import './SocialLogin.scss';
