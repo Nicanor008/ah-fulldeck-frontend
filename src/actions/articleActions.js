@@ -51,38 +51,33 @@ export const postArticle = payload => async dispatch => await axiosConfig
     );
   });
 
-export const editArticle = (payload, slug) => async dispatch => {
-  // eslint-disable-next-line no-return-await
-  return await axiosConfig
-    .put(`/api/v1/articles/${slug}/`, payload)
-    .then(response => {
-      dispatch({
-        type: types.EDIT_ARTICLE,
-        payload: response,
-      });
-      dispatch(getAllArticles());
-    })
-    .catch(error => {
-      const errors = JSON.parse(error.request.response);
-      dispatch({
-        type: types.GET_SINGLE_ARTICLE_ERROR,
-        payload: errors,
-      });
-      launchToast(errors.article.description, 'toastFail', 'descFail', 'fail');
-    });
-};
-
-
 // eslint-disable-next-line no-return-await
-export const deleteArticle = slug => async dispatch => await axiosConfig
-  .delete(`/api/v1/articles/${slug}/`)
+export const editArticle = (payload, slug) => async dispatch => await axiosConfig
+  .put(`/api/v1/articles/${slug}/`, payload)
   .then(response => {
     dispatch({
-      type: types.DELETE_ARTICLE,
+      type: types.EDIT_ARTICLE,
       payload: response,
     });
-    dispatch(getAllArticles);
+    dispatch(getAllArticles());
+  })
+  .catch(error => {
+    const errors = JSON.parse(error.request.response);
+    dispatch({
+      type: types.GET_SINGLE_ARTICLE_ERROR,
+      payload: errors,
+    });
+    launchToast(errors.article.description, 'toastFail', 'descFail', 'fail');
   });
+
+// eslint-disable-next-line no-return-await
+export const deleteArticle = slug => async dispatch => await axiosConfig.delete(`/api/v1/articles/${slug}/`).then(response => {
+  dispatch({
+    type: types.DELETE_ARTICLE,
+    payload: response,
+  });
+  dispatch(getAllArticles);
+});
 
 export const getSingleArticle = slug => async dispatch => {
   dispatch({

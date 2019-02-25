@@ -9,14 +9,14 @@ import CommentsContainer from '../comments/CommentsContainer';
 import Rating from '../rating/RatingArticle';
 import DisplayRating from '../rating/DisplayRating';
 import { getSingleArticle, deleteArticle } from '../../actions/articleActions';
-import LikesDislikes from './LikeDislikeArticle'
+import LikesDislikes from './LikeDislikeArticle';
 import launchToast from '../../helpers/toaster';
 import NotFound from '../layout/NotFound';
 import '../../assets/styles/articles.scss';
 
 class SingleArticle extends Component {
   state = {
-    article: {}
+    article: {},
   };
 
   componentDidMount() {
@@ -27,23 +27,23 @@ class SingleArticle extends Component {
   buttonDeleteArticle = () => {
     const slug = this.props.article.article.slug;
     this.props.deleteArticle(slug);
-    launchToast("Article Deleted", "toastSuccess", "descSuccess", "success");
+    launchToast('Article Deleted', 'toastSuccess', 'descSuccess', 'success');
     this.props.history.push('/');
     window.location.reload();
   };
-  
+
   checkLoggedInUser = () => {
     const { article } = this.props;
-    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    const loggedInUser = JSON.parse(localStorage.getItem('user'));
     if (loggedInUser) {
-      const user = JSON.parse(localStorage.getItem("user")).username;
+      const user = JSON.parse(localStorage.getItem('user')).username;
       if (user === this.props.article.article.author.username) {
         return (
           <React.Fragment>
             <Link
               to={{
                 pathname: `/article/edit/${article.article.slug}`,
-                article: { ...article }
+                article: { ...article },
               }}
               className="slug-link"
             >
@@ -94,11 +94,12 @@ class SingleArticle extends Component {
                     <div className="card-body">
                       <div className="card-text font-weight-bold text-center display-2">
                         <h2>
-                          <strong style={{ color: "black" }}>
+                          <strong style={{ color: 'black' }}>
                             {article.article.title}
                           </strong>
                         </h2>
                       </div>
+                      <span>Avg rating</span>
                       <DisplayRating {...this.props} />
                       <div className="row">
                         <div className="col col-md-5">
@@ -155,17 +156,17 @@ SingleArticle.propTypes = {
   slug: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
   getSingleArticle: PropTypes.func.isRequired,
-  deleteArticle:PropTypes.func.isRequired,
+  deleteArticle: PropTypes.func.isRequired,
   notFetching: PropTypes.bool.isRequired,
-  article: PropTypes.object.isRequired
+  article: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   article: state.article.article,
-  notFetching: state.article.notFetching
+  notFetching: state.article.notFetching,
 });
 
 export default connect(
   mapStateToProps,
-  { getSingleArticle, deleteArticle }
+  { getSingleArticle, deleteArticle },
 )(SingleArticle);
