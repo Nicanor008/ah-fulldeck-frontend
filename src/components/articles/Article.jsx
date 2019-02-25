@@ -4,6 +4,7 @@ import "../../assets/styles/articles.scss";
 
 import pen from '../../assets/images/pen.jpg';
 import AllArticlesDisplayRating from '../rating/AllArticlesDisplayRating';
+import '../../assets/styles/Likes.scss';
 
 // eslint-disable-next-line import/prefer-default-export
 const Article = article => (
@@ -54,8 +55,8 @@ const Article = article => (
       </Link>
       <hr />
       <div className="likecontainer">
-        <i className="fa fa-thumbs-up fa-2x " /> {article.like}{' '}
-        &nbsp;&nbsp;&nbsp; <i className="fa fa-thumbs-down fa-2x " />{' '}
+        <i className="fa fa-thumbs-up fa-2x thumbsup" id="thumbsup" /> {article.like}{' '}
+        &nbsp;&nbsp;&nbsp; <i className="fa fa-thumbs-down fa-2x thumbsdown" id="thumbsdown" />{' '}
         {article.dislike}
       </div>
       <AllArticlesDisplayRating {...article} />

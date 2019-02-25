@@ -11,11 +11,11 @@ const TextInputGroup = ({
   error,
   spin,
 }) => (
-  <div className="form-group">
+  <div className="form-group w-100">
     <input
       type={type}
       name={name}
-      className={classnames('form-control form-control-lg', {
+      className={classnames('form-control form-control-lg w-100', {
         'is-invalid': error,
       })}
       placeholder={!error ? placeholder : error}
