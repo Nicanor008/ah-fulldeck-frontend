@@ -164,12 +164,12 @@ class EditUserProfileComponent extends Component {
         <div>
           <div className="container bg-light bootstrap snippets">
             <div className="row">
-              <div className="col-md-12 col-sm-9 border border-dark rounded mt-2">
+              <div className="col-md-12 col-sm-9 border border-dark rounded mt-2 ">
                 <form
                   onSubmit={this.handleSubmit}
                   className="form-horizontal m-3"
                 >
-                  <div>
+                  <div className="w-100">
                     <div className="panel-body text-center upload-img">
                       <img
                         className="user-image"
@@ -265,17 +265,17 @@ class EditUserProfileComponent extends Component {
                       </div>
                     </div>
                   </div>
-                  <div className=" w-75">
+                  <div className=" w-100  border border-top-0 border-left-0 border-right-0 border-dark">
                     <div className="panel-heading pl-0">
                       <h4 className="panel-title font-weight-bold">
                         User info
                       </h4>
                     </div>
                   </div>
-                  <div className="panel-body content">
+                  <div className="panel-body border-0 content w-75">
                     <div className="form-group">
                       <label className="col-sm-2 control-label border-0 border-bottom text-left">
-                        <span className="font-weight-light">Username: </span>
+                        <span className="font-weight-bold">Username: </span>
                         {' '}
                         {username}
                       </label>

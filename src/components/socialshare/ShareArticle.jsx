@@ -11,7 +11,7 @@ class ShareArticle extends Component {
     const mailLink = `mailto:?Subject=An%20article%20has%20been%20shared%20with%20you%20&Body=${`${title}  ${window.location.href}`}`;
     return (
       <div className="btn-group" role="group">
-        <span className="text-danger ml-2">Share this article</span>
+        <span className="text-dark font-weight-bold ml-2">Share this article</span>
         &nbsp;&nbsp;&nbsp;
         <SocialButton
           icon="faFacebook"

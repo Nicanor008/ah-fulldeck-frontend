@@ -12,12 +12,7 @@ const logout = () => {
   window.location.assign('/');
 };
 
-const loggedInUser = JSON.parse(localStorage.getItem('user'));
-
 const NavBar = () => (
-//   if (loggedInUser) {
-//   console.log(user);
-// }
   <div className="container NavBar">
     <div className="row">
       <div className="col-md-4">
@@ -56,14 +51,15 @@ const NavBar = () => (
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton"
               >
-                {loggedInUser && (
                 <Link
                   className="dropdown-item menu-dropdown-item"
-                  to={`/profile/${JSON.parse(localStorage.getItem('user')).username}/`}
+                  to={`/profile/${
+                    JSON.parse(localStorage.getItem('user')).username
+                  }/`}
                 >
                   My Profile
                 </Link>
-                )}
+
                 <Link
                   className="dropdown-item menu-dropdown-item"
                   to="/article/create-article"
@@ -71,10 +67,16 @@ const NavBar = () => (
                   New Article
                 </Link>
                 <Link
-                  className="dropdown-item menu-dropdown-item"
                   to="/articles/bookmarks"
+                  className="dropdown-item menu-dropdown-item"
                 >
                   Bookmarks
+                </Link>
+                <Link
+                  to="/profiles"
+                  className="dropdown-item menu-dropdown-item"
+                >
+                  Authors
                 </Link>
                 <button
                   type="button"
@@ -90,10 +92,7 @@ const NavBar = () => (
       ) : (
         <div className="col-md-8 d-flex justify-content-end">
           <Link to="/login">
-            <button
-              type="button"
-              className="btn btn-default btn-sm"
-            >
+            <button type="button" className="btn btn-default btn-sm">
               Login
             </button>
           </Link>

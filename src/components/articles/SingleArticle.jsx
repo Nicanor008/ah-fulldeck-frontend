@@ -83,7 +83,7 @@ class SingleArticle extends Component {
                         <img
                           src={article.article.author.image}
                           alt=""
-                          className="rounded-circle w-75 border ml-2"
+                          className="rounded-circle border w-50 h-50 ml-2"
                         />
                       </div>
                       <div>
