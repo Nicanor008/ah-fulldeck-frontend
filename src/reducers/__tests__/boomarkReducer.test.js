@@ -3,6 +3,7 @@ import {
   BOOKMARK_ARTICLE,
   UNBOOKMARK_ARTICLE,
   BOOKMARK_ARTICLE_FAILURE,
+  GET_ALL_BOOKMARKS_SUCCESS,
 } from '../../actions/types';
 
 const action = {
@@ -10,6 +11,14 @@ const action = {
     isBookmarked: '',
   },
 };
+const allBookmarks = [
+  {
+    bookmark: "bookmark one"
+  },
+  {
+    bookmark: "Another bookmark"
+  }
+];
 
 const bookmark = action.action.isBookmarked;
 
@@ -42,6 +51,14 @@ describe('Bookmark reducers', () => {
         isBookmarked: bookmark,
       }).isBookmarked,
     ).toEqual(false);
+  });
+  it("should return all bookmarked articles", () => {
+    expect(
+      bookmarkArticlesReducer(initialState, {
+        type: GET_ALL_BOOKMARKS_SUCCESS,
+        data: allBookmarks
+      }).bookmarks
+    ).toEqual(allBookmarks);
   });
 });
  

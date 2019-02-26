@@ -5,6 +5,7 @@ import '../../assets/styles/articles.scss';
 import pen from '../../assets/images/pen.jpg';
 import AllArticlesDisplayRating from '../rating/AllArticlesDisplayRating';
 import '../../assets/styles/Likes.scss';
+import BookmarkArticle from './boomarks/Bookmark';
 
 // eslint-disable-next-line import/prefer-default-export
 const Article = article => (
@@ -73,6 +74,9 @@ const Article = article => (
               Views
             </div>
           </div>
+        </div>
+        <div className='col-md-6 bookmarkcontainer'>
+        <BookmarkArticle bookmarked={article.bookmarked} slug={article.slug} />
         </div>
       </div>
     </div>

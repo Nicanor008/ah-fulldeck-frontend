@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default upload => {
-  const url = 'https://api.cloudinary.com/v1_1/fulldeck/upload';
+  const url = 'https://cors-anywhere.herokuapp.com/https://api.cloudinary.com/v1_1/fulldeck/upload';
   const formData = new FormData();
 
   const headers = { 'Content-Type': 'application/x-wwww-form-urlencoded' };

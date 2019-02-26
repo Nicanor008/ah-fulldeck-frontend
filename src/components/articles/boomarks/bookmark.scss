@@ -1,10 +1,11 @@
 .bookmark {
   border: 0;
   float: right;
+  padding: 10px;
 }
 
 #bookmark {
-  font-size: 28px;
+  font-size: 25px;
 }
 .bookmarked {
   color: #daa520;
@@ -12,3 +13,10 @@
 .notbookmarked {
   color: #cac7c7;
 }
+.bookmarktitle{
+  color:#000;
+  text-align: center;
+  font-weight: bold;
+  font-size: 35px;
+}
+

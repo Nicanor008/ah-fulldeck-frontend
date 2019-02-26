@@ -17,6 +17,7 @@ import NotFound from './components/layout/NotFound';
 import PrivateRoute from './components/auth/PrivateRedirect';
 import EditArticle from './components/articles/EditArticle';
 import NavBar from './components/navBar';
+import Bookmarks from './components/articles/boomarks/AllBookmarks';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
@@ -49,6 +50,7 @@ class App extends Component {
               exact
               component={CreateArticle}
             />
+            <PrivateRoute path="/articles/bookmarks" exact component={Bookmarks} />
             <Route path="/article/:slug" exact component={SingleArticle} />
             <Route path="/password-reset" component={ResetPassword} />
             <Route exact path="/password-reset" component={ResetPassword} />

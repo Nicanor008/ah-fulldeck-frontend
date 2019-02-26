@@ -1,7 +1,14 @@
-import { BOOKMARK_ARTICLE, BOOKMARK_ARTICLE_FAILURE, UNBOOKMARK_ARTICLE } from '../actions/types';
+import {
+  BOOKMARK_ARTICLE,
+  BOOKMARK_ARTICLE_FAILURE,
+  UNBOOKMARK_ARTICLE,
+  GET_ALL_BOOKMARKS_SUCCESS,
+  GET_ALL_BOOKMARKS_FAIL,
+} from '../actions/types';
 
 export const initialState = {
   isBookmarked: false,
+  bookmarks: [],
 };
 
 const bookmarkArticlesReducer = (state = initialState, action) => {
@@ -21,6 +28,14 @@ const bookmarkArticlesReducer = (state = initialState, action) => {
         ...state,
         isBookmarked: false,
         error: action.payload,
+      };
+    case GET_ALL_BOOKMARKS_SUCCESS:
+      return {
+        bookmarks: action.data,
+      };
+    case GET_ALL_BOOKMARKS_FAIL:
+      return {
+        error: action.error,
       };
     default:
       return state;
