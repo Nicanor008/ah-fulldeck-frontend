@@ -11,9 +11,7 @@ import DisplayRating from '../rating/DisplayRating';
 import { getSingleArticle, deleteArticle } from '../../actions/articleActions';
 import LikesDislikes from './LikeDislikeArticle';
 import launchToast from '../../helpers/toaster';
-import NotFound from '../layout/NotFound';
 import '../../assets/styles/articles.scss';
-import ShareArticle from '../socialshare/ShareArticle';
 
 class SingleArticle extends Component {
   // eslint-disable-next-line react/no-unused-state
@@ -28,10 +26,13 @@ class SingleArticle extends Component {
 
   buttonDeleteArticle = () => {
     const slug = this.props.article.article.slug;
-    this.props.deleteArticle(slug);
-    launchToast('Article Deleted', 'toastSuccess', 'descSuccess', 'success');
-    this.props.history.push('/');
-    window.location.reload();
+    const confirmDelete = window.confirm("Are you sure you want to Delete?");
+    if (confirmDelete) {
+      this.props.deleteArticle(slug);
+      launchToast("Article Deleted", "toastSuccess", "descSuccess", "success");
+      this.props.history.push('/');
+      window.location.reload();
+    } 
   };
 
   checkLoggedInUser = () => {
@@ -67,14 +68,18 @@ class SingleArticle extends Component {
     return (
       <React.Fragment>
         <div>
-          {notFetching ? (
+          {notFetching && (
             <div>
               <div className="container mt-3">
-                <div className="container card border border-dark  bg-light">
+                <div className="container card border border-dark bg-light">
                   <div className="card-header border-0 bg-light">
                     <div className="row  border border-dark border-top-0 border-right-0 border-left-0">
-                      <div className="col col-sm-1">
-                        <img src={article.article.author.image} alt="" className="rounded-circle w-75 border ml-2" />
+                      <div className="col-sm-1">
+                        <img
+                          src={article.article.author.image}
+                          alt=""
+                          className="rounded-circle w-75 border ml-2"
+                        />
                       </div>
                       <div>
                         <span className="font-weight-bold">{article.article.author.username}</span>
@@ -91,18 +96,29 @@ class SingleArticle extends Component {
                       <span>Avg rating</span>
                       <DisplayRating {...this.props} />
                       <div className="row">
-                        <div className="col col-md-5">
+                        <div className="col-md-12 pt-3 article-body">
                           {article.article.image_url && (
-                            <img src={article.article.image_url} alt="ArticleImage" className="logo w-100 h-100 mx-3" />
+                            <div className="pull-left body-img">
+                              <img
+                                src={article.article.image_url}
+                                alt="ArticleImage"
+                                className="img-responsive pull-left pr-3 pb-3"
+                              />
+                            </div>
                           )}
+                          {ReactHtmlParser(article.article.body)}
                         </div>
-                        <div className="col col-md-5">{ReactHtmlParser(article.article.body)}</div>
                       </div>
-                      <div className="row">
-                        <div className="col col-md-4">
-                          {Auth.isAuthenticated ? (
-                            <LikesDislikes {...this.props} />
-                          ) : (
+                    </div>
+                    <hr />
+                    <div className="row pt-3">
+                      <div className="col-sm-3 article-views">
+                        {this.checkLoggedInUser()}
+                      </div>
+                      <div className="col-sm-2 d-inline">
+                        {Auth.isAuthenticated ? (
+                          <LikesDislikes {...this.props} />
+                        ) : (
                             <div className="likecontainer">
                               <i className="fa fa-thumbs-up fa-2x " />
                               {article.article.likes}
@@ -112,23 +128,30 @@ class SingleArticle extends Component {
                               {article.article.dislikes}
                             </div>
                           )}
+                      </div>
+                      <div className="col-sm-2 d-inline">
+                        {Auth.isAuthenticated && <Rating {...this.props} />}
+                      </div>
+                      <div className="col-sm-3">
+                        <i className="glyphicon glyphicon-eye-open ml-2  d-inline text-primary"></i>
+                        <div className="views-count ml-2 d-inline">
+                          {article.article.views}
+                        </div>
+                        <div className="pl-1 d-inline font-weight-normal">
+                          Views
                         </div>
                       </div>
-                      <div className="col col-md-4">{Auth.isAuthenticated && <Rating {...this.props} />}</div>
+                      <div className="col-sm-2">
+                        <BookmarkArticle {...this.props} />
+                      </div>
                     </div>
-                    {this.checkLoggedInUser()}
-                  </div>
                   <div />
-                  <BookmarkArticle {...this.props} />
-                </div>
-                <br />
-                <ShareArticle {...this.props} />
+                  </div>
+                  </div>
                 <CommentsContainer {...this.props} />
                 <div className="card-footer bg-light" />
               </div>
             </div>
-          ) : (
-            <NotFound />
           )}
         </div>
       </React.Fragment>

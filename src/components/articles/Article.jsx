@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "../../assets/styles/articles.scss";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../../assets/styles/articles.scss';
 
 import pen from '../../assets/images/pen.jpg';
 import AllArticlesDisplayRating from '../rating/AllArticlesDisplayRating';
@@ -46,20 +46,35 @@ const Article = article => (
                   className="logo w-100 h-100 mx-3"
                 />
               )) || (
-                <img src={pen} alt="logo" className="logo w-100 h-100 mx-3" />
-              )}
+                  <img src={pen} alt="logo" className="logo w-100 h-100 mx-3" />
+                )}
             </div>
             <div className="col col-md-5">{article.description}</div>
           </div>
         </div>
       </Link>
       <hr />
-      <div className="likecontainer">
-        <i className="fa fa-thumbs-up fa-2x thumbsup" id="thumbsup" /> {article.like}{' '}
-        &nbsp;&nbsp;&nbsp; <i className="fa fa-thumbs-down fa-2x thumbsdown" id="thumbsdown" />{' '}
-        {article.dislike}
+      <div className="row likecontainer">
+        <div className="col-sm-2">
+          <i className="fa fa-thumbs-up fa-2x thumbsup" id="thumbsup" /> {article.like}{' '}
+          &nbsp;&nbsp;&nbsp; <i className="fa fa-thumbs-down fa-2x thumbsdown" id="thumbsdown" />{' '}
+          {article.dislike}
+        </div>
+        <div className="col-sm-2">
+          <AllArticlesDisplayRating {...article} />
+        </div>
+        <div className="article-views">
+          <div className="article-views">
+            <i className="glyphicon glyphicon-eye-open d-inline text-primary"></i>
+            <div className="views-count pl-2 d-inline">
+              {article.views} 
+            </div>  
+            <div className="pl-1 d-inline font-weight-normal">
+              Views
+            </div>
+          </div>
+        </div>
       </div>
-      <AllArticlesDisplayRating {...article} />
     </div>
   </div>
 );

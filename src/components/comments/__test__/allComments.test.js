@@ -47,3 +47,9 @@ describe('Comments elements tests', () => {
     expect(wrapper.find(Comment).length).toBe(2);
   });
 });
+
+it('render comments count ', () => {
+  const { wrapper } = setup();
+  const comments = wrapper.find('.comments-count');
+  expect(comments).toBeDefined();
+});
