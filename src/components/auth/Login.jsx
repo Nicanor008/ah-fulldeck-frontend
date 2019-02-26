@@ -76,7 +76,6 @@ class Login extends Component {
     const {
       password, email, formErrors, errors,
     } = this.state;
-
     return (
       <div className="card mb-3" style={{ width: '35rem', margin: '0 auto' }}>
         <div
@@ -120,7 +119,7 @@ class Login extends Component {
               className="btn btn-success btn-block"
             >
               Login user
-              {this.props.isLoading && (
+              {this.props.user.isLoading && (
                 <i className="fas fa-spinner fa-spin ml-2" />
               )}
             </button>
