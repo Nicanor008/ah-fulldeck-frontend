@@ -5,14 +5,18 @@ import PropTypes from 'prop-types';
 import TextInputGroup from '../layout/TextInputGroup';
 import { loginUser } from '../../actions/userActions';
 import SocialLoginComponent from './socialauth/SocialLogin';
-import launchToast from '../../helpers/toaster';
 import Auth from './Auth';
+
+const emailRegex = RegExp(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/);
 
 class Login extends Component {
   state = {
     email: '',
     password: '',
     errors: {},
+    formErrors: {
+      email: '',
+    },
   };
 
   componentDidUpdate() {
@@ -21,9 +25,6 @@ class Login extends Component {
     if (user.user) {
       if (user.user.success) {
         Auth.authenticate();
-        const username = user.user.username;
-
-        launchToast(`${username} logged in successfully`, 'toastSuccess', 'descSuccess', 'success');
         localStorage.setItem('user', JSON.stringify(user.user));
         localStorage.setItem('token', user.user.token);
         history.push('/');
@@ -31,25 +32,15 @@ class Login extends Component {
     }
   }
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
 
     const { email, password } = this.state;
 
     // Check For Errors
-    if (email === '') {
-      this.setState({ errors: { email: 'Email is required' } });
-      return;
-    }
-
     if (password === '') {
       this.setState({ errors: { password: 'password is required' } });
       return;
-    }
-    const { user } = this.props;
-    if (user.errors && user.errors.error) {
-      const message = user.errors.error[0];
-      launchToast(message, 'toastFail', 'descFail', 'fail');
     }
 
     const newLogin = {
@@ -61,10 +52,31 @@ class Login extends Component {
     this.setState({ errors: {} });
   };
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  onChange = e => {
+    const { name, value } = e.target;
+    const formErrors = {
+      // eslint-disable-next-line react/no-access-state-in-setstate
+      ...this.state.formErrors,
+    };
+
+    switch (name) {
+      case 'email':
+        formErrors.email = emailRegex.test(value)
+          ? ''
+          : 'Email must be of the format name@domain.com';
+        break;
+      default:
+        break;
+    }
+
+    this.setState({ formErrors, [name]: value });
+  };
 
   render() {
-    const { password, email, errors } = this.state;
+    const {
+      password, email, formErrors, errors,
+    } = this.state;
+
     return (
       <div className="card mb-3" style={{ width: '35rem', margin: '0 auto' }}>
         <div
@@ -83,11 +95,13 @@ class Login extends Component {
         >
           <form onSubmit={this.onSubmit}>
             <TextInputGroup
+              className={formErrors.email.length > 0 && 'error'}
               name="email"
               placeholder="Enter Email ..."
               value={email}
+              noValidate
               onChange={this.onChange}
-              error={errors.email}
+              error={formErrors.email}
             />
             <TextInputGroup
               name="password"
@@ -95,10 +109,21 @@ class Login extends Component {
               placeholder="Enter password ..."
               value={password}
               onChange={this.onChange}
+              noValidate
               error={errors.password}
             />
-
-            <input type="submit" value="Login user" className="btn btn-success btn-block" />
+            <button
+              type="submit"
+              aria-hidden="true"
+              disabled={this.props.isLoading}
+              value="Login user"
+              className="btn btn-success btn-block"
+            >
+              Login user
+              {this.props.isLoading && (
+                <i className="fas fa-spinner fa-spin ml-2" />
+              )}
+            </button>
           </form>
         </div>
 
@@ -111,12 +136,20 @@ class Login extends Component {
             </p>
             <SocialLoginComponent />
             <Link to="/password-reset">
-              <button type="button" className="d-inline mr-2 btn btn-default btn-md">Forgot Password</button>
-
+              <button
+                type="button"
+                className="d-inline mr-2 btn btn-default btn-md"
+              >
+                Forgot Password
+              </button>
             </Link>
             <Link to="/signup">
-              <button type="button" className="d-inline ml-1 btn btn-default btn-md">Create Account</button>
-
+              <button
+                type="button"
+                className="d-inline ml-1 btn btn-default btn-md"
+              >
+                Create Account
+              </button>
             </Link>
           </div>
         </center>
@@ -124,12 +157,20 @@ class Login extends Component {
     );
   }
 }
+Login.defaultProps = {
+  isLoading: false,
+};
 Login.propTypes = {
   history: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   loginUser: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   user: state.login,
+  isLoading: state.data.isLoading,
 });
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(
+  mapStateToProps,
+  { loginUser },
+)(Login);

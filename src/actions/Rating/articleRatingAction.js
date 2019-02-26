@@ -6,6 +6,9 @@ import launchToast from '../../helpers/toaster';
 // eslint-disable-next-line import/prefer-default-export
 export const userRatingArticle = (slug, value) => async dispatch => {
   dispatch({ type: RATING_REQUEST });
+  axiosConfig.defaults.headers.Authorization = `Token ${localStorage.getItem(
+    'token',
+  )}`;
   await axiosConfig
     .post(`/api/v1/articles/${slug}/rate/`, {
       rating: {
