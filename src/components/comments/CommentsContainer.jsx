@@ -41,8 +41,6 @@ class CommentsContainer extends Component {
       comments: '',
       errors: {},
     });
-
-    window.location.reload();
   };
 
   onChange = e => this.setState({ comments: e.target.value, disabled: false });
@@ -54,6 +52,7 @@ class CommentsContainer extends Component {
         <h1>Comments</h1>
         <hr />
         <Comments {...this.props} />
+        {/* {console.log(this.props)} */}
         {Auth.isAuthenticated && (
           <form onSubmit={this.onSubmit}>
             <div className="form-group">

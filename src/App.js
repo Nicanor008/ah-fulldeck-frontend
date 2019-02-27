@@ -17,6 +17,7 @@ import NotFound from './components/layout/NotFound';
 import PrivateRoute from './components/auth/PrivateRedirect';
 import EditArticle from './components/articles/EditArticle';
 import NavBar from './components/navBar';
+import UpdateComment from './components/comments/UpdateComment';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
@@ -41,17 +42,16 @@ class App extends Component {
               component={EditUserProfileComponent}
             />
             <Route path="/" exact component={AllArticles} />
-            <PrivateRoute path="/:slug/comments" component={CommentsContainer} />
-            <Route path="/:slug" exact component={SingleArticle} />
-            <PrivateRoute path="/article/edit/:slug" exact component={EditArticle} />
             <PrivateRoute
               path="/article/create-article"
               exact
               component={CreateArticle}
             />
             <Route path="/article/:slug" exact component={SingleArticle} />
-            <Route path="/password-reset" component={ResetPassword} />
             <Route exact path="/password-reset" component={ResetPassword} />
+            <PrivateRoute path="/article/edit/:slug" exact component={EditArticle} />
+            <PrivateRoute path="/:slug/comments" component={CommentsContainer} />
+            <PrivateRoute path="/article/:slug/comments/edit/:id" component={UpdateComment} />
             <Route
               exact
               path="/password-update/:token"

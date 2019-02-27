@@ -25,11 +25,11 @@ export class Comments extends Component {
       return <Loader />;
     }
 
-    const { comments } = this.props;
+    const { comments, article } = this.props;
     return (
       <React.Fragment>
         {comments.comments.map(comment => (
-          <Comment key={comment.id} comment={comment} />
+          <Comment key={comment.id} comment={comment} article={article} />
         ))}
       </React.Fragment>
     );
@@ -39,6 +39,7 @@ export class Comments extends Component {
 Comments.propTypes = {
   comments: PropTypes.array.isRequired,
   getComments: PropTypes.func.isRequired,
+  article: PropTypes.object,
   match: PropTypes.string,
   slug: PropTypes.string,
 };
