@@ -15,18 +15,16 @@ class Rating extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="mt-5">
-          <span>Rate this article</span>
-          <br />
-          <StarRatingComponent
-            name="rateArticle"
-            starCount={5}
-            onStarClick={this.onStarClick}
-          />
-          {this.props.isLoading && (
-            <i className="fas fa-spinner fa-spin ml-2" />
-          )}
-        </div>
+        <span>Rate this article</span>
+        <br />
+        <StarRatingComponent
+          name="rateArticle"
+          starCount={5}
+          onStarClick={this.onStarClick}
+        />
+        {this.props.isLoading && (
+          <i className="fas fa-spinner fa-spin ml-2" />
+        )}
       </React.Fragment>
     );
   }

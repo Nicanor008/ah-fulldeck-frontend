@@ -49,9 +49,25 @@ class CommentsContainer extends Component {
 
   render() {
     const { comments, errors } = this.state;
+    const {
+      comments: {
+        comments: {
+          count,
+        },
+      },
+    } = this.props;
     return (
       <div>
-        <h1>Comments</h1>
+        <div className="row">
+          <div className=" col-md-10 text-center">
+            <h1>Comments</h1>
+          </div>
+          <div className="col-md-2 comments-count mt-3 text-center font-weight-bolder">
+            {/* eslint-disable-next-line react/prop-types */}
+            {count}
+            <div className="d-inline ml-2">Comments</div>
+          </div>
+        </div>
         <hr />
         <Comments {...this.props} />
         {Auth.isAuthenticated && (
@@ -73,6 +89,7 @@ CommentsContainer.propTypes = {
   addComment: PropTypes.func.isRequired,
   slug: PropTypes.string,
   match: PropTypes.string,
+  comments: PropTypes.number,
 };
 
 const mapStateToProps = state => ({

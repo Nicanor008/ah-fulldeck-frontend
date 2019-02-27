@@ -64,7 +64,6 @@ const NavBar = () => (
                   My Profile
                 </Link>
                 )}
-    
                 <Link
                   className="dropdown-item menu-dropdown-item"
                   to="/article/create-article"

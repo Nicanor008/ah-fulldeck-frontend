@@ -37,9 +37,9 @@ export class Comments extends Component {
 }
 
 Comments.propTypes = {
-  comments: PropTypes.array.isRequired,
+  comments: PropTypes.object.isRequired,
   getComments: PropTypes.func.isRequired,
-  match: PropTypes.string,
+  match: PropTypes.object,
   slug: PropTypes.string,
 };
 
