@@ -49,7 +49,7 @@ class AllArticles extends Component {
           <div className="container card border-0 bg-light">
             {notFetching && (
               <div>
-                {articles.article.results.map((article) => (
+                {articles.article.results.map(article => (
                   <Article
                     title={article.title}
                     description={article.description}
@@ -79,7 +79,9 @@ class AllArticles extends Component {
                   activePage={this.state.activePage}
                   itemsCountPerPage={config.PAGE_SIZE}
                   totalItemsCount={articles.article.count}
-                  pageRangeDisplayed={Math.ceil(articles.article.count / config.PAGE_SIZE)}
+                  pageRangeDisplayed={Math.ceil(
+                    articles.article.count / config.PAGE_SIZE,
+                  )}
                   onChange={this.handlePageChange}
                 />
               </div>
@@ -99,9 +101,12 @@ AllArticles.propTypes = {
   articles: PropTypes.object,
   notFetching: PropTypes.bool.isRequired,
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   articles: state.articles.articles,
   notFetching: state.articles.notFetching,
 });
 
-export default connect(mapStateToProps, { getAllArticles })(AllArticles);
+export default connect(
+  mapStateToProps,
+  { getAllArticles },
+)(AllArticles);

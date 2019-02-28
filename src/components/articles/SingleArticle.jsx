@@ -13,7 +13,7 @@ import LikesDislikes from './LikeDislikeArticle';
 import launchToast from '../../helpers/toaster';
 import '../../assets/styles/articles.scss';
 import ShareArticle from '../socialshare/ShareArticle';
-
+import ReportArticle from './report/Report';
 
 class SingleArticle extends Component {
   // eslint-disable-next-line react/no-unused-state
@@ -154,6 +154,11 @@ class SingleArticle extends Component {
                       </div>
                       <div className="col-sm-2">
                         <BookmarkArticle bookmarked={article.article.bookmarked} slug={article.article.slug}  />
+                      </div>
+                      <div className="col col-md-1 w-25">
+                        {Auth.isAuthenticated && (
+                          <ReportArticle {...this.props} />
+                        )}
                       </div>
                     </div>
                   </div>
