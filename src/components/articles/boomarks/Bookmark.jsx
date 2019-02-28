@@ -6,27 +6,28 @@ import BookmarkIcon from './bookmarkButton';
 import { bookmarkArticle } from '../../../actions/bookmarkActions';
 
 class BookmarkArticle extends Component {
-  componentDidMount() {
-    this.slug = this.props.match.params.slug;
-  }
-
   handleBookmark = () => {
-    this.props.bookmark(this.slug);
+    const { slug } = this.props;
+    this.props.bookmark(slug);
   };
 
 
   render() {
+    const { bookmarked } = this.props;
     return (
       <BookmarkIcon
         onBookmarkClick={this.handleBookmark}
+        bookmark={bookmarked}
       />
     );
   }
 }
 BookmarkArticle.propTypes = {
-  match: PropTypes.object.isRequired,
+  slug: PropTypes.string.isRequired,
   bookmark: PropTypes.func.isRequired,
+  bookmarked: PropTypes.bool.isRequired,
 };
+
 const mapDispatchToProps = dispatch => bindActionCreators({ bookmark: bookmarkArticle }, dispatch);
 
 export default connect(

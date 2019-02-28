@@ -11,6 +11,7 @@ import commentsReducer from './commentsReducer';
 import updateReducer from './updateReducer';
 import { likeDislike } from './likeDislikeReducer';
 import ratingReducer from './Rating/ratingReducer';
+import bookmarkArticlesReducer from './bookmarkReducer';
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   socialAuth,
   likeDislike,
   rating: ratingReducer,
+  bookmark: bookmarkArticlesReducer,
 });
 
 export default rootReducer;

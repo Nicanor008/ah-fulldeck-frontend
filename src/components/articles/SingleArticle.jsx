@@ -12,6 +12,8 @@ import { getSingleArticle, deleteArticle } from '../../actions/articleActions';
 import LikesDislikes from './LikeDislikeArticle';
 import launchToast from '../../helpers/toaster';
 import '../../assets/styles/articles.scss';
+import ShareArticle from '../socialshare/ShareArticle';
+
 
 class SingleArticle extends Component {
   // eslint-disable-next-line react/no-unused-state
@@ -26,13 +28,13 @@ class SingleArticle extends Component {
 
   buttonDeleteArticle = () => {
     const slug = this.props.article.article.slug;
-    const confirmDelete = window.confirm("Are you sure you want to Delete?");
+    const confirmDelete = window.confirm('Are you sure you want to Delete?');
     if (confirmDelete) {
       this.props.deleteArticle(slug);
-      launchToast("Article Deleted", "toastSuccess", "descSuccess", "success");
+      launchToast('Article Deleted', 'toastSuccess', 'descSuccess', 'success');
       this.props.history.push('/');
       window.location.reload();
-    } 
+    }
   };
 
   checkLoggedInUser = () => {
@@ -54,7 +56,10 @@ class SingleArticle extends Component {
                 Edit
               </button>
             </Link>
-            <button className="d-inline btn btn-danger ml-1" onClick={this.buttonDeleteArticle}>
+            <button
+              className="d-inline btn btn-danger ml-1"
+              onClick={this.buttonDeleteArticle}
+            >
               Delete
             </button>
           </React.Fragment>
@@ -82,15 +87,21 @@ class SingleArticle extends Component {
                         />
                       </div>
                       <div>
-                        <span className="font-weight-bold">{article.article.author.username}</span>
+                        <span className="font-weight-bold">
+                          {article.article.author.username}
+                        </span>
                         <br />
-                        <span>{new Date(article.article.created_at).toDateString()}</span>
+                        <span>
+                          {new Date(article.article.created_at).toDateString()}
+                        </span>
                       </div>
                     </div>
                     <div className="card-body">
                       <div className="card-text font-weight-bold text-center display-2">
                         <h2>
-                          <strong style={{ color: 'black' }}>{article.article.title}</strong>
+                          <strong style={{ color: 'black' }}>
+                            {article.article.title}
+                          </strong>
                         </h2>
                       </div>
                       <span>Avg rating</span>
@@ -119,21 +130,21 @@ class SingleArticle extends Component {
                         {Auth.isAuthenticated ? (
                           <LikesDislikes {...this.props} />
                         ) : (
-                            <div className="likecontainer">
-                              <i className="fa fa-thumbs-up fa-2x " />
-                              {article.article.likes}
-                              &nbsp;&nbsp;&nbsp;
-                              <i className="fa fa-thumbs-down fa-2x " />
-                              &nbsp;&nbsp;&nbsp;
-                              {article.article.dislikes}
-                            </div>
-                          )}
+                          <div className="likecontainer">
+                            <i className="fa fa-thumbs-up fa-2x " />
+                            {article.article.likes}
+                            &nbsp;&nbsp;&nbsp;
+                            <i className="fa fa-thumbs-down fa-2x " />
+                            &nbsp;&nbsp;&nbsp;
+                            {article.article.dislikes}
+                          </div>
+                        )}
                       </div>
                       <div className="col-sm-2 d-inline">
                         {Auth.isAuthenticated && <Rating {...this.props} />}
                       </div>
                       <div className="col-sm-3">
-                        <i className="glyphicon glyphicon-eye-open ml-2  d-inline text-primary"></i>
+                        <i className="glyphicon glyphicon-eye-open ml-2  d-inline text-primary" />
                         <div className="views-count ml-2 d-inline">
                           {article.article.views}
                         </div>
@@ -142,15 +153,16 @@ class SingleArticle extends Component {
                         </div>
                       </div>
                       <div className="col-sm-2">
-                        <BookmarkArticle {...this.props} />
+                        <BookmarkArticle bookmarked={article.article.bookmarked} slug={article.article.slug}  />
                       </div>
                     </div>
+                  </div>
                   <div />
-                  </div>
-                  </div>
-                <CommentsContainer {...this.props} />
-                <div className="card-footer bg-light" />
+                </div>
+                <ShareArticle {...this.props} />
               </div>
+              <CommentsContainer {...this.props} />
+              <div className="card-footer bg-light" />
             </div>
           )}
         </div>
@@ -167,9 +179,12 @@ SingleArticle.propTypes = {
   article: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   article: state.article.article,
   notFetching: state.article.notFetching,
 });
 
-export default connect(mapStateToProps, { getSingleArticle, deleteArticle })(SingleArticle);
+export default connect(
+  mapStateToProps,
+  { getSingleArticle, deleteArticle },
+)(SingleArticle);

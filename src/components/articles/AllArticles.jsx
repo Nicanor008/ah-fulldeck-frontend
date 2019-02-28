@@ -62,10 +62,13 @@ class AllArticles extends Component {
                     dislike={article.dislikes}
                     rating={article.avg_rating.avg_rating}
                     views={article.views}
+                    bookmarked={article.bookmarked}
                   />
                 ))}
               </div>
-            )}
+            )
+              }
+
             {articles.article.count > config.PAGE_SIZE && (
               <div className="mx-auto">
                 <Pagination

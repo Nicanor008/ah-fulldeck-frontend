@@ -10,7 +10,6 @@ import {
   FacebookProvider,
   TwitterProvider,
 } from '../../../config/firebase';
-// eslint-disable-next-line import/named
 import { FACEBOOK, GOOGLE, TWITTER } from '../../../actions/types';
 import SocialButton from './SocialButton';
 import './SocialLogin.scss';
@@ -80,8 +79,7 @@ class SocialLoginComponent extends React.Component {
         crossDomain: true,
       })
       .then(response => {
-        const { token } = response.data.user;
-        localStorage.setItem('token', token);
+        localStorage.setItem('user', response.data.user);
         dataFetch.receivedUsers(response.data);
       })
       .catch(err => {
@@ -132,7 +130,6 @@ class SocialLoginComponent extends React.Component {
       });
   }
 
-
   renderButton = providers => (
     <div className="btn-group">
       {providers.map(providerName => (
@@ -182,7 +179,6 @@ export function mapStateToProps(state, myProps) {
     return {
       socialAuth: state.socialAuth,
       msg: state.socialAuth.message,
-      g: state.socialAuth.message,
       myProps,
     };
   }

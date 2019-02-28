@@ -70,6 +70,12 @@ const NavBar = () => (
                 >
                   New Article
                 </Link>
+                <Link
+                  className="dropdown-item menu-dropdown-item"
+                  to="/articles/bookmarks"
+                >
+                  Bookmarks
+                </Link>
                 <button
                   type="button"
                   className="btn btn-default dropdown-item menu-dropdown-item"
