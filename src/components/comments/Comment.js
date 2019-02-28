@@ -2,10 +2,11 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import ComponentButton from './ComponentButton';
+// import ComponentButton from './ComponentButton';
 import './Comments.scss';
 import 'bootstrap';
 import UpdateComment from './UpdateComment';
+import ReplyComment from './ReplyComment';
 
 const Comment = ({
   comment: {
@@ -25,17 +26,18 @@ const Comment = ({
           </span>
         </strong>
       </p>
-      <div className="card-text border-0 bg-light text-muted mt-2">
+      <div className="card-text border-0 bg-light text-muted mt-2 w-100 p-3">
         {' '}
         {body} <br /> <br />
         <div className="col-md-8" style={{ float: 'right' }}>
           <UpdateComment id={id} slug={article.slug} body={body} />
-          <ComponentButton
+          <ReplyComment id={id} slug={article.slug} body={body} />
+          {/* <ComponentButton
             type="submit"
             id="reply"
             clazz="fas fa-reply"
             value="Reply"
-          />
+          /> */}
           <br />
         </div>
         <br />

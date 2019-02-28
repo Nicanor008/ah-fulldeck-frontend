@@ -6,6 +6,7 @@ import {
   GET_COMMENT,
   UPDATE_COMMENT,
   DELETE_COMMENT,
+  REPLY_COMMENT,
 } from './types';
 import launchToaster from '../helpers/toaster';
 import axiosConfig from '../config/configAxios';
@@ -106,7 +107,6 @@ export const deleteComment = (slug, id) => async dispatch => {
   await axiosConfig
     .delete(`/api/v1/articles/${slug}/comments/${id}/`)
     .catch(error => {
-      // console.log(error.request);
       const errors = JSON.parse(error.request.response);
       dispatch({
         type: COMMENT_ERROR,
@@ -114,7 +114,6 @@ export const deleteComment = (slug, id) => async dispatch => {
       });
     })
     .then(res => {
-      // console.log(res.data.detail);
       if (res) {
         dispatch({
           type: DELETE_COMMENT,
@@ -123,6 +122,34 @@ export const deleteComment = (slug, id) => async dispatch => {
         dispatch(getComments);
         launchToaster(
           res.data.detail,
+          'toastSuccess',
+          'descSuccess',
+          'success',
+        );
+      }
+    });
+};
+
+export const replyComment = (slug, id, body) => async dispatch => {
+  dispatch({ type: COMMENT_REQUEST });
+  await axiosConfig
+    .post(`/api/v1/articles/${slug}/comments/${id}/`, body)
+    .catch(error => {
+      const errors = JSON.parse(error.request.response);
+      dispatch({
+        type: COMMENT_ERROR,
+        payload: errors,
+      });
+      launchToaster(errors.error, 'toastFail', 'descFail', 'fail');
+    })
+    .then(res => {
+      if (res) {
+        dispatch({
+          type: REPLY_COMMENT,
+          payload: res.data,
+        });
+        launchToaster(
+          'Reply added successfully',
           'toastSuccess',
           'descSuccess',
           'success',

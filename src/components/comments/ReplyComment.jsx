@@ -1,15 +1,14 @@
-/* eslint-disable no-alert */
 /* eslint-disable import/no-named-as-default */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ComponentButton from './ComponentButton';
-import launchToast from '../../helpers/toaster';
-import { getComment, updateComment, deleteComment } from '../../actions/commentsActions';
+// import launchToast from '../../helpers/toaster';
+import { getComment, replyComment } from '../../actions/commentsActions';
 
 import Auth from '../auth/Auth';
 
-class UpdateComment extends Component {
+class ReplyComment extends Component {
   constructor() {
     super();
     this.onSubmit = this.onSubmit.bind(this);
@@ -20,29 +19,17 @@ class UpdateComment extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { body } = nextProps.comment;
-    this.setState({
-      // eslint-disable-next-line react/no-unused-state
-      body,
-    });
-  }
-
-  handleDeleteComment = (e, slug, id) => {
-    e.preventDefault();
-    const confirmDelete = window.confirm('Are you sure you want to delete this comment?');
-    if (confirmDelete) {
-      this.props.deleteComment(slug, id);
-      launchToast('Comment Deleted Successfully', 'toastSuccess', 'descSuccess', 'success');
-      window.location.reload();
-    }
-  }
+  //   componentWillReceiveProps(nextProps) {
+  //     const { body } = nextProps.comment;
+  //     this.setState({
+  //       // eslint-disable-next-line react/no-unused-state
+  //       body,
+  //     });
+  //   }
 
   handleGetComment = (e, slug, id) => {
     e.preventDefault();
     this.props.getComment(slug, id).then(() => {
-      const { body } = this.props;
-      this.setState({ body });
     });
   };
 
@@ -57,8 +44,7 @@ class UpdateComment extends Component {
       },
     };
 
-    this.props.updateComment(slug, id, payload);
-    // this.props.history.push('/');
+    this.props.replyComment(slug, id, payload);
 
     // clear state
     this.setState({
@@ -76,24 +62,17 @@ class UpdateComment extends Component {
       <div>
         <ComponentButton
           type="submit"
-          id="delete"
-          clazz="fas fa-times"
-          value="Delete"
-          onClick={e => this.handleDeleteComment(e, slug, id)}
-        />
-        <ComponentButton
-          type="submit"
-          id="edit"
-          clazz="fas fa-pen"
-          value="Edit"
+          id="reply"
+          clazz="fas fa-reply"
+          value="Reply"
           onClick={e => this.handleGetComment(e, slug, id)}
           datatoggle="modal"
-          datatarget="#exampleModalCenter"
+          datatarget="#replyModalCenter"
         />
         {Auth.isAuthenticated && (
           <div
             className="modal fade"
-            id="exampleModalCenter"
+            id="replyModalCenter"
             tabIndex="-1"
             role="dialog"
             aria-labelledby="exampleModalCenterTitle"
@@ -103,7 +82,7 @@ class UpdateComment extends Component {
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" id="exampleModalLongTitle">
-                    Edit comment
+                    Reply to this comment
                   </h5>
                   <button
                     type="button"
@@ -122,7 +101,7 @@ class UpdateComment extends Component {
                         className="form-control"
                         rows="5"
                         id="comment"
-                        placeholder="Enter your comments here"
+                        placeholder="Reply to the comment here"
                         value={body}
                         onChange={this.onChange}
                         errors={errors.comments}
@@ -132,11 +111,11 @@ class UpdateComment extends Component {
                       type="submit"
                       aria-hidden="true"
                       disabled={this.state.disabled}
-                      value="Update Comments"
+                      value="Reply Comment"
                       className="btn btn-success btn-block"
                       style={{ height: '40px', width: '30%', float: 'right' }}
                     >
-                      Edit Comment
+                      Reply Comment
                     </button>
                   </form>
                 </div>
@@ -149,13 +128,12 @@ class UpdateComment extends Component {
   }
 }
 
-UpdateComment.propTypes = {
+ReplyComment.propTypes = {
   getComment: PropTypes.func.isRequired,
-  updateComment: PropTypes.func.isRequired,
+  replyComment: PropTypes.func.isRequired,
   body: PropTypes.object,
   slug: PropTypes.string,
   id: PropTypes.string,
-  deleteComment: PropTypes.func.isRequired,
   comment: PropTypes.object,
 };
 
@@ -166,5 +144,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getComment, updateComment, deleteComment },
-)(UpdateComment);
+  { getComment, replyComment },
+)(ReplyComment);

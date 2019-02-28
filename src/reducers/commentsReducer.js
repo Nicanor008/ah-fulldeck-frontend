@@ -5,6 +5,7 @@ import {
   COMMENT_ERROR, CREATED_COMMENT,
   UPDATE_COMMENT, GET_COMMENT,
   DELETE_COMMENT,
+  REPLY_COMMENT,
 } from '../actions/types';
 
 const initialState = {
@@ -48,6 +49,16 @@ const commentsReducer = (state = initialState, action) => {
         },
       };
     case UPDATE_COMMENT:
+      return {
+        ...state,
+        isLoading: false,
+        comments: {
+          ...state.comments,
+          comments: state.comments.comments.map(comment => (comment.id === action.payload.id ? (comment = action.payload) : comment)),
+        },
+        comment: action.payload,
+      };
+    case REPLY_COMMENT:
       return {
         ...state,
         isLoading: false,

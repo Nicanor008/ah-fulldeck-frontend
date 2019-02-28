@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Comment from './Comment';
 import { getComments } from '../../actions/commentsActions';
 import Loader from '../layout/Loader';
+import ReplyCommentComponent from './ReplyCommentComponent';
+// import ReplyComment from './ReplyComment';
 
 export class Comments extends Component {
   constructor() {
@@ -31,6 +33,10 @@ export class Comments extends Component {
         {comments.comments.map(comment => (
           <Comment key={comment.id} comment={comment} article={article} />
         ))}
+        {comments.comments.map((comment) => (
+          <ReplyCommentComponent key={comment.id} comment={comment} />
+        ))
+        }
       </React.Fragment>
     );
   }
