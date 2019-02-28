@@ -11,10 +11,7 @@ import BookmarkArticle from './boomarks/Bookmark';
 const Article = article => (
   <div className="row">
     <div className="col-md-9 card bg-light border border-dark p-1 mb-3 mx-auto">
-      <Link
-        to={{ pathname: `/article/${article.slug}`, article: { ...article } }}
-        className="link-nostyle"
-      >
+      <Link to={`/profile/${article.author.username}`} className="link-nostyle">
         <div className="card-header bg-transparent">
           <div className="row">
             <div className="col col-sm-1">
@@ -33,7 +30,11 @@ const Article = article => (
             </div>
           </div>
         </div>
-
+      </Link>
+      <Link
+        to={{ pathname: `/article/${article.slug}`, article: { ...article } }}
+        className="link-nostyle"
+      >
         <div className="card-body">
           <div className="card-text font-weight-bold text-center ml-4">
             {article.title}
@@ -47,38 +48,38 @@ const Article = article => (
                   className="logo w-100 h-100 mx-3"
                 />
               )) || (
-                  <img src={pen} alt="logo" className="logo w-100 h-100 mx-3" />
-                )}
+                <img src={pen} alt="logo" className="logo w-100 h-100 mx-3" />
+              )}
             </div>
             <div className="col col-md-5">{article.description}</div>
           </div>
         </div>
-      </Link>
-      <hr />
-      <div className="row likecontainer">
-        <div className="col-sm-2">
-          <i className="fa fa-thumbs-up fa-2x thumbsup" id="thumbsup" /> {article.like}{' '}
-          &nbsp;&nbsp;&nbsp; <i className="fa fa-thumbs-down fa-2x thumbsdown" id="thumbsdown" />{' '}
-          {article.dislike}
-        </div>
-        <div className="col-sm-2">
-          <AllArticlesDisplayRating {...article} />
-        </div>
-        <div className="article-views">
+        <hr />
+        <div className="row likecontainer">
+          <div className="col-sm-2">
+            <i className="fa fa-thumbs-up fa-2x thumbsup" id="thumbsup" />{' '}
+            {article.like} &nbsp;&nbsp;&nbsp;{' '}
+            <i className="fa fa-thumbs-down fa-2x thumbsdown" id="thumbsdown" />{' '}
+            {article.dislike}
+          </div>
+          <div className="col-sm-2">
+            <AllArticlesDisplayRating {...article} />
+          </div>
           <div className="article-views">
-            <i className="glyphicon glyphicon-eye-open d-inline text-primary"></i>
-            <div className="views-count pl-2 d-inline">
-              {article.views} 
-            </div>  
-            <div className="pl-1 d-inline font-weight-normal">
-              Views
+            <div className="article-views">
+              <i className="glyphicon glyphicon-eye-open d-inline text-primary" />
+              <div className="views-count pl-2 d-inline">{article.views}</div>
+              <div className="pl-1 d-inline font-weight-normal">Views</div>
             </div>
           </div>
+          <div className="col-md-6 bookmarkcontainer">
+            <BookmarkArticle
+              bookmarked={article.bookmarked}
+              slug={article.slug}
+            />
+          </div>
         </div>
-        <div className='col-md-6 bookmarkcontainer'>
-        <BookmarkArticle bookmarked={article.bookmarked} slug={article.slug} />
-        </div>
-      </div>
+      </Link>
     </div>
   </div>
 );

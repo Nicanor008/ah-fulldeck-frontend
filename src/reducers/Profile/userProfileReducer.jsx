@@ -1,4 +1,8 @@
-import { GET_PROFILE, EDIT_PROFILE } from '../../actions/types';
+import {
+  GET_PROFILE,
+  EDIT_PROFILE,
+  GET_LOGGED_IN_USER_FOLLOWING,
+} from '../../actions/types';
 
 const initialState = {
   user: {},
@@ -15,6 +19,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: action.payload,
+      };
+    case GET_LOGGED_IN_USER_FOLLOWING:
+      return {
+        ...state,
+        loggedInUserfollowing: action.payload,
       };
     default:
       return state;

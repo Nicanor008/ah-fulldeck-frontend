@@ -66,11 +66,10 @@ class AllArticles extends Component {
                   />
                 ))}
               </div>
-            )
-              }
+            )}
 
             {articles.article.count > config.PAGE_SIZE && (
-              <div className="mx-auto">
+              <div className="mx-auto text-uppercase">
                 <Pagination
                   prevPageText="prev"
                   nextPageText="next"

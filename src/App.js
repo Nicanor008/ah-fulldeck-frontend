@@ -18,6 +18,9 @@ import PrivateRoute from './components/auth/PrivateRedirect';
 import EditArticle from './components/articles/EditArticle';
 import NavBar from './components/navBar';
 import Bookmarks from './components/articles/boomarks/AllBookmarks';
+import UsersProfilesComponent from './components/Users/UsersProfilesComponent';
+import FollowingComponent from './components/Users/FollowingComponent';
+import FollowersComponent from './components/Users/FollowersComponent';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
@@ -36,21 +39,43 @@ class App extends Component {
               path="/profile/:username"
               component={UserProfileComponent}
             />
+            <Route exact path="/profiles" component={UsersProfilesComponent} />
+            <Route
+              exact
+              path="/profile/:username/following"
+              component={FollowingComponent}
+            />
+            <Route
+              exact
+              path="/profile/:username/followers"
+              component={FollowersComponent}
+            />
             <Route
               exact
               path="/profile/edit-profile/:username"
               component={EditUserProfileComponent}
             />
             <Route path="/" exact component={AllArticles} />
-            <PrivateRoute path="/:slug/comments" component={CommentsContainer} />
+            <PrivateRoute
+              path="/:slug/comments"
+              component={CommentsContainer}
+            />
             <Route path="/:slug" exact component={SingleArticle} />
-            <PrivateRoute path="/article/edit/:slug" exact component={EditArticle} />
+            <PrivateRoute
+              path="/article/edit/:slug"
+              exact
+              component={EditArticle}
+            />
             <PrivateRoute
               path="/article/create-article"
               exact
               component={CreateArticle}
             />
-            <PrivateRoute path="/articles/bookmarks" exact component={Bookmarks} />
+            <PrivateRoute
+              path="/articles/bookmarks"
+              exact
+              component={Bookmarks}
+            />
             <Route path="/article/:slug" exact component={SingleArticle} />
             <Route path="/password-reset" component={ResetPassword} />
             <Route exact path="/password-reset" component={ResetPassword} />

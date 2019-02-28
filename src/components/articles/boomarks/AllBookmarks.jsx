@@ -35,6 +35,7 @@ class Bookmarks extends Component {
                       description={bookmark.description}
                       author={bookmark.author}
                       slug={bookmark.slug}
+                      views={bookmark.views}
                       image_url={bookmark.image_url}
                       created_at={new Date(bookmark.created_at).toDateString()}
                       like={bookmark.likes}

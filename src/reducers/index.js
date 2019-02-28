@@ -13,6 +13,9 @@ import { likeDislike } from './likeDislikeReducer';
 import ratingReducer from './Rating/ratingReducer';
 import bookmarkArticlesReducer from './bookmarkReducer';
 import reportReducer from './Report/reportReducer';
+import usersProfilesReducer from './Profile/usersProfilesReducer';
+import followingReducer from './Profile/followingReducer';
+import followersReducer from './Profile/followersReducer';
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -20,6 +23,9 @@ const rootReducer = combineReducers({
   articles: ArticleReducer,
   article: singleArticleReducer,
   profile: UserProfileReducer,
+  usersProfiles: usersProfilesReducer,
+  following: followingReducer,
+  followers: followersReducer,
   comment: commentsReducer,
   resetPassword,
   updateReducer,
