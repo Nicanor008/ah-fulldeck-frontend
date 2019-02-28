@@ -21,6 +21,7 @@ import Bookmarks from './components/articles/boomarks/AllBookmarks';
 import UsersProfilesComponent from './components/Users/UsersProfilesComponent';
 import FollowingComponent from './components/Users/FollowingComponent';
 import FollowersComponent from './components/Users/FollowersComponent';
+import UpdateComment from './components/comments/UpdateComment';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
@@ -77,8 +78,10 @@ class App extends Component {
               component={Bookmarks}
             />
             <Route path="/article/:slug" exact component={SingleArticle} />
-            <Route path="/password-reset" component={ResetPassword} />
             <Route exact path="/password-reset" component={ResetPassword} />
+            <PrivateRoute path="/article/edit/:slug" exact component={EditArticle} />
+            <PrivateRoute path="/:slug/comments" component={CommentsContainer} />
+            <PrivateRoute path="/article/:slug/comments/edit/:id" component={UpdateComment} />
             <Route
               exact
               path="/password-update/:token"

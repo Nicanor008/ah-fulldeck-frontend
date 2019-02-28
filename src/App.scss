@@ -341,9 +341,9 @@ form label {
 .blogShort{ border-bottom:1px solid #ddd;}
 .add{background: #333; padding: 10%; height: 300px;}
 
-.nav-sidebar { 
+.nav-sidebar {
     width: 100%;
-    padding: 8px 0; 
+    padding: 8px 0;
     border-right: 1px solid #ddd;
 }
 .nav-sidebar a {
@@ -353,20 +353,20 @@ form label {
     -o-transition: all 0.08s linear;
     transition: all 0.08s linear;
 }
-.nav-sidebar .active a { 
+.nav-sidebar .active a {
     cursor: default;
-    background-color: #34ca78; 
-    color: #fff; 
+    background-color: #34ca78;
+    color: #fff;
 }
 .nav-sidebar .active a:hover {
-    background-color: #37D980;   
+    background-color: #37D980;
 }
 .nav-sidebar .text-overflow a,
 .nav-sidebar .text-overflow .media-body {
     white-space: nowrap;
     overflow: hidden;
     -o-text-overflow: ellipsis;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
 }
 
 .btn-blog {
@@ -387,7 +387,7 @@ form label {
 }
  h2{color:#000000;}
  .margin10{margin-bottom:10px; margin-right:10px;}
- 
+
 .avatar {
   vertical-align: middle;
   width: 30px;

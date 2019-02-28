@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import {
   addComment,
   getComments,
+  updateComment,
 } from '../commentsActions';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -24,7 +25,25 @@ describe('Test comments actions', () => {
   });
 
   it('send add comments request actions', () => {
-    store.dispatch(addComment());
+    const slug = 'test-article';
+    const value = {
+      comment: {
+      body: "comments"
+    }
+  }
+    store.dispatch(addComment(slug, value));
+    expect(store.getActions()[0].type).toBe('COMMENT_REQUEST');
+  });
+
+  it('send update comments request actions', () => {
+    const slug = 'test-article';
+    const id = 1
+    const value = {
+      comment: {
+      body: "comments"
+    }
+  }
+    store.dispatch(updateComment(slug, id, value));
     expect(store.getActions()[0].type).toBe('COMMENT_REQUEST');
   });
 });
